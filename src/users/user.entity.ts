@@ -1,12 +1,5 @@
 import { Rating } from '../ratings/rating.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  OneToMany,
-  BeforeInsert,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')

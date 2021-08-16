@@ -16,7 +16,7 @@ async function bootstrap() {
     .addBearerAuth()
     .setTitle('Api Example')
     .setDescription(
-      'Simple api with authentication and related resource for saving and rating NASA Astronomy Pictures of the Day',
+      'Simple api with authentication and related resource for saving and rating NASA Astronomy Pictures of the Day'
     )
     .setVersion('0.1')
     .build();
@@ -25,11 +25,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
   await app.listen(port);
-  console.log(process.env.NODE_ENV);
-  if (process.env.NODE_ENV === 'develop') {
-    console.log(
-      chalk.black.bgYellow(`\n~~ Api running at http://localhost:${port} ~~`),
-    );
-  }
+  console.log(
+    `${chalk.yellow.bold('API is running at:')} ${chalk.underline.magentaBright.bold(`${await app.getUrl()}`)}`
+  );
 }
 bootstrap();

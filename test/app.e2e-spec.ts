@@ -48,10 +48,7 @@ describe('App e2e', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
   });
 
   describe('Authentication', () => {
@@ -59,26 +56,18 @@ describe('App e2e', () => {
 
     describe('AuthModule', () => {
       it('should register a user', async () => {
-        const registerRes = await request(app.getHttpServer())
-          .post('/register')
-          .send(testInput)
-          .expect(201);
+        const registerRes = await request(app.getHttpServer()).post('/register').send(testInput).expect(201);
         user = registerRes.body;
       });
 
       // assume test data includes user test@example.com with password 'password'
       it('authenticates user with valid credentials and provides a jwt token', async () => {
         const { username, password } = testInput;
-        const response = await request(app.getHttpServer())
-          .post('/login')
-          .send({ username, password })
-          .expect(200);
+        const response = await request(app.getHttpServer()).post('/login').send({ username, password }).expect(200);
 
         // set jwt token for use in subsequent tests
         jwtToken = response.body.access_token;
-        expect(jwtToken).toMatch(
-          /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
-        ); // jwt regex
+        expect(jwtToken).toMatch(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/); // jwt regex
       });
 
       it('fails to authenticate user with an incorrect password', async () => {

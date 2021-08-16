@@ -8,6 +8,6 @@ import { RatingsController } from './ratings.controller';
   imports: [TypeOrmModule.forFeature([Rating])],
   controllers: [RatingsController],
   providers: [RatingsService],
-  exports: [RatingsService],
+  exports: [TypeOrmModule, RatingsService],
 })
 export class RatingsModule {}

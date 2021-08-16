@@ -8,10 +8,7 @@ import { User } from '../users/user.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
 
   public async register(registrationData: RegisterDto) {
     try {
@@ -20,16 +17,10 @@ export class AuthService {
       return createdUser;
     } catch (error) {
       if (error?.code === PostgresErrorCode.UniqueViolation) {
-        throw new HttpException(
-          'User with that email or username already exists',
-          HttpStatus.BAD_REQUEST,
-        );
+        throw new HttpException('User with that email or username already exists', HttpStatus.BAD_REQUEST);
       }
       console.error(error);
-      throw new HttpException(
-        'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('Something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

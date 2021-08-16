@@ -9,7 +9,7 @@ import { User } from '../users/user.entity';
 export class RatingsService {
   constructor(
     @InjectRepository(Rating)
-    private ratingsRepository: Repository<Rating>,
+    private ratingsRepository: Repository<Rating>
   ) {}
 
   async find(userId: string) {

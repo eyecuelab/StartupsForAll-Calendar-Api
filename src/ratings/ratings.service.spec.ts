@@ -1,22 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Repository } from 'typeorm';
-import { RatingsController } from './ratings.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ormconfig } from '../database/ormconfig';
+import { RatingsModule } from './ratings.module';
 import { RatingsService } from './ratings.service';
 
 describe('RatingsService', () => {
   let service: RatingsService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [RatingsController],
-      providers: [
-        {
-          provide: 'RatingRepository',
-          useClass: Repository,
-        },
-        RatingsService,
-      ],
-      exports: [RatingsService],
+      imports: [TypeOrmModule.forRoot(ormconfig), RatingsModule],
+      providers: [RatingsService],
     }).compile();
 
     service = module.get<RatingsService>(RatingsService);

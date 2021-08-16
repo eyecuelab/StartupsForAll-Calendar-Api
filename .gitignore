@@ -2,10 +2,14 @@
 /dist
 /node_modules
 
+# docker
+/tmp
+
 # Logs
 logs
 *.log
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
@@ -33,11 +37,8 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# env
-*.env
-.env
-.env.*
-!.env.example
 
-# eslint
-.eslintcache
+# dotenv
+.env
+*.env.*
+!.env.example

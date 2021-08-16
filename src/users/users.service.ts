@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private usersRepository: Repository<User>
   ) {}
 
   async findOne(attributes: Partial<User>): Promise<User | undefined> {

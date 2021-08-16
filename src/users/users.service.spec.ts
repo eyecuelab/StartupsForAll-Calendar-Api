@@ -1,20 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Repository } from 'typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ormconfig } from '../database/ormconfig';
+import { UsersModule } from './users.module';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        {
-          provide: 'UserRepository',
-          useClass: Repository,
-        },
-        UsersService,
-      ],
-      exports: [UsersService],
+      imports: [TypeOrmModule.forRoot(ormconfig), UsersModule],
+      providers: [UsersService],
     }).compile();
 
     service = module.get<UsersService>(UsersService);

@@ -1,43 +1,21 @@
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from '../users/users.service';
-import { Repository } from 'typeorm';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import ormconfig from '../database/ormconfig';
+import { UsersModule } from '../users/users.module';
+import { AuthModule } from './auth.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 describe('AuthController', () => {
   let controller: AuthController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        ConfigModule.forRoot(),
-        PassportModule,
-        JwtModule.registerAsync({
-          imports: [ConfigModule],
-          inject: [ConfigService],
-          useFactory: async (configService) => ({
-            secret: configService.get('JWT_SECRET'),
-            signOptions: { expiresIn: configService.get('JWT_SECRET') },
-          }),
-        }),
-      ],
-      providers: [
-        {
-          provide: 'UserRepository',
-          useClass: Repository,
-        },
-        ConfigService,
-        UsersService,
-        AuthService,
-        LocalStrategy,
-        JwtStrategy,
-      ],
-      exports: [AuthService],
+      imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(ormconfig), UsersModule, AuthModule],
+      providers: [AuthService, LocalStrategy, JwtStrategy],
       controllers: [AuthController],
     }).compile();
 
