@@ -14,11 +14,11 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Api Example')
+    .setTitle('Startups For All Events API')
     .setDescription(
-      'Simple api with authentication and related resource for saving and rating NASA Astronomy Pictures of the Day'
+      'An API for accessing, creating, updating, and removing events from the Startups For All shared events calendar.'
     )
-    .setVersion('0.1')
+    .setVersion('0.2')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

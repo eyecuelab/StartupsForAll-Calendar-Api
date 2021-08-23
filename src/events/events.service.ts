@@ -17,13 +17,13 @@ export class EventsService {
   }
 
   async create(eventData: CreateEventDto): Promise<Event> {
-    const newEvent = await this.eventsRespository.create({ ...eventData });
+    const newEvent = this.eventsRespository.create({ ...eventData });
     await this.eventsRespository.save(newEvent);
     return newEvent;
   }
 
   async findOne(id: string): Promise<Event | undefined> {
-    return this.eventsRespository.findOne({
+    return await this.eventsRespository.findOne({
       where: {
         id: id,
       },
