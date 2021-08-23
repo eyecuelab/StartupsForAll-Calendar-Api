@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RatingsModule } from './ratings/ratings.module';
 import { ormconfig } from './database/ormconfig';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ormconfig } from './database/ormconfig';
     AuthModule,
     UsersModule,
     RatingsModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
