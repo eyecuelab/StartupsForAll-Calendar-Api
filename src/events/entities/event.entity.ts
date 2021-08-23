@@ -1,9 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-
-export type category = 'Startups For All' | 'Founder' | 'Expert' | 'Community';
-export type categoryText =
-  | 'This is a Startups for All / SfA Community Event.'
-  | 'This is an external event independently managed and operated by one of SfA’s guest experts.';
+import { category } from './../eventCategory.enum';
+import { categoryText } from './../eventCategoryText.enum';
 
 @Entity('event')
 export class Event {
@@ -16,11 +13,8 @@ export class Event {
   @Column('text')
   description: string;
 
-  @Column({
-    type: 'set',
-    enum: ['Startups For All', 'Founder', 'Expert', 'Community'],
-  })
-  category: category[];
+  @Column()
+  category: category;
 
   @Column('text')
   event_link: string;
@@ -31,14 +25,8 @@ export class Event {
   @Column('int')
   cost: number;
 
-  @Column({
-    type: 'set',
-    enum: [
-      'This is a Startups for All / SfA Community Event.',
-      'This is an external event independently managed and operated by one of SfA’s guest experts.',
-    ],
-  })
-  category_text: categoryText[];
+  @Column()
+  category_text: categoryText;
 
   @Column('date')
   when: Date;
