@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -22,15 +22,19 @@ export class EventsService {
     return newEvent;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  async findOne(id: string): Promise<Event | undefined> {
+    return this.eventsRespository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  async updateOne(id: string, eventData: Partial<UpdateEventDto>): Promise<UpdateResult> {
+    return await this.eventsRespository.update(id, eventData);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async remove(id: string): Promise<DeleteResult> {
+    return await this.eventsRespository.delete({ id });
   }
 }
