@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsInt, IsNotEmpty, IsUrl, IsEnum } from 'class-validator';
+import { IsDateString, IsInt, IsNotEmpty, IsUrl, IsEnum } from 'class-validator';
 import { category } from './../eventCategory.enum';
 import { categoryText } from './../eventCategoryText.enum';
 
@@ -39,7 +39,7 @@ export class CreateEventDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   readonly when: Date;
 
   @ApiProperty()
@@ -52,7 +52,7 @@ export class CreateEventDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly panelists: string;
+  readonly panelists: string[];
 
   @ApiProperty()
   @IsNotEmpty()
