@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { ormconfig } from '../database/ormconfig';
+// import { User } from './user.entity';
 import { UsersModule } from './users.module';
 import { UsersService } from './users.service';
 
@@ -27,4 +28,18 @@ describe('UsersService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  // it('should get one', async () => {
+  //   const result: Promise<User> = new Promise((resolve) => {
+  //     resolve({
+  //       id: '1',
+  //       password: 'testpassword',
+  //       hashPassword: () => new Promise((resolve) => resolve(null)),
+  //       email: 'test@test.com',
+  //       username: 'testuser',
+  //     });
+  //   });
+  //   jest.spyOn(service, 'findOne').mockImplementation(async () => await result);
+  //   expect(await service.findOne({ username: 'testuser' })).toBe(await result);
+  // });
 });
