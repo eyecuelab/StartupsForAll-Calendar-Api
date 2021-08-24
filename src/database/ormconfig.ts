@@ -5,7 +5,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 const env = process.env.NODE_ENV || 'dev';
 const dotenv_path = path.resolve(process.cwd(), `.env.${env}`);
 const result = dotenv.config({ path: dotenv_path });
-console.log('here I am', env);
+
 if (result.error) {
   /* do nothing */
 }
