@@ -7,10 +7,11 @@ import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 
 describe('EventsController', () => {
-  let controller: EventsController;
+  let eventsController: EventsController;
+  let eventsService: EventsService;
   let connection: Connection;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TypeOrmModule.forRoot(ormconfig), TypeOrmModule.forFeature([Event])],
       controllers: [EventsController],
@@ -18,7 +19,8 @@ describe('EventsController', () => {
       exports: [TypeOrmModule, EventsService],
     }).compile();
 
-    controller = module.get<EventsController>(EventsController);
+    eventsController = module.get<EventsController>(EventsController);
+    eventsService = module.get<EventsService>(EventsService);
     connection = module.get(getConnectionToken());
   });
 
@@ -28,6 +30,12 @@ describe('EventsController', () => {
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(eventsController).toBeDefined();
+  });
+
+  it('eventsController.findAll() should return all events', async () => {
+    let result: Promise<Event[]>;
+    jest.spyOn(eventsService, 'findAll').mockImplementation(() => result);
+    expect(await eventsController.findAll()).toBe(result);
   });
 });
