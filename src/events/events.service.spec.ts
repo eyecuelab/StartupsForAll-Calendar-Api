@@ -7,10 +7,10 @@ import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 
 describe('EventsService', () => {
-  let service: EventsService;
+  let eventsService: EventsService;
   let connection: Connection;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TypeOrmModule.forRoot(ormconfig), TypeOrmModule.forFeature([Event])],
       controllers: [EventsController],
@@ -18,7 +18,7 @@ describe('EventsService', () => {
       exports: [TypeOrmModule, EventsService],
     }).compile();
 
-    service = module.get<EventsService>(EventsService);
+    eventsService = module.get<EventsService>(EventsService);
     connection = module.get(getConnectionToken());
   });
 
@@ -28,6 +28,19 @@ describe('EventsService', () => {
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(eventsService).toBeDefined();
+  });
+  // findAll
+  // create
+  // findOne
+  // updateOne
+  // remove
+
+  xit('should return an array of events when findAll() is called', async () => {
+    let events: Promise<Event[]>;
+    console.log(eventsService);
+    const receivedEvents = await eventsService.findAll();
+    console.log('received events', receivedEvents);
+    expect(receivedEvents).toEqual(events);
   });
 });
