@@ -1,4 +1,3 @@
-// import { Rating } from '../ratings/rating.entity';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 

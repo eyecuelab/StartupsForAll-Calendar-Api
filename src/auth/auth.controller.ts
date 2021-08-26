@@ -9,18 +9,17 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
+  @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   async login(@Body() data: LoginUserDto, @Req() request) {
     return this.authService.login(request.user);
   }
 
+  @Get('admin')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get('admin')
   async getAdmin(@Req() req) {
-    // TODO: make this return more meaningful info, events queue controls?
     return req.user;
   }
 }
