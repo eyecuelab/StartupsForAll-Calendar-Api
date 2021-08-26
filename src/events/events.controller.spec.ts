@@ -12,6 +12,9 @@ describe('EventsController', () => {
   let eventsController: EventsController;
   let eventsService: EventsService;
   let connection: Connection;
+  let fakeUpdateDto: UpdateEventDto;
+  let fakeEvent: CreateEventDto;
+  const fakeUuid = '39725196-e020-4757-99a6-b71f3c26dc8d';
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -35,35 +38,36 @@ describe('EventsController', () => {
     expect(eventsController).toBeDefined();
   });
 
-  it('eventsController.findAll() should return all events', async () => {
-    let result: Promise<Event[]>;
-    jest.spyOn(eventsService, 'findAll').mockImplementation(() => result);
-    expect(await eventsController.findAll()).toBe(result);
+  it('eventsController.findAll() should call eventsService.findAll()', async () => {
+    jest.spyOn(eventsService, 'findAll').mockImplementation(() => undefined);
+    await eventsController.findAll();
+    expect(eventsService.findAll).toHaveBeenCalled();
   });
 
-  it('eventsController.findOne() should return a single event', async () => {
-    let result: Promise<Event>;
-    jest.spyOn(eventsService, 'findOne').mockImplementation(() => result);
-    expect(await eventsController.findOne('fakeuuid')).toBe(result);
+  it('eventsController.findOne() should call eventsService.findOne()', async () => {
+    jest.spyOn(eventsService, 'findOne').mockImplementation(() => undefined);
+    await eventsController.findOne(fakeUuid);
+    expect(eventsService.findOne).toHaveBeenCalled();
   });
 
-  it('eventsController.update() should return an UpdateResult of an event', async () => {
+  it('eventsController.update() should call eventsService.update()', async () => {
     let result: Promise<UpdateResult>;
-    let fakeUpdateDto: UpdateEventDto;
     jest.spyOn(eventsService, 'updateOne').mockImplementation(() => result);
-    expect(await eventsController.update('fakeuuid', fakeUpdateDto)).toBe(result);
+    await eventsController.update(fakeUuid, fakeUpdateDto);
+    expect(eventsService.updateOne).toHaveBeenCalled();
   });
 
-  it('eventsController.remove() should delete a single event', async () => {
+  it('eventsController.remove() should call eventsService.remove()', async () => {
     let result: Promise<DeleteResult>;
     jest.spyOn(eventsService, 'remove').mockImplementation(() => result);
-    expect(await eventsController.remove('fakeuuid')).toBe(result);
+    await eventsController.remove(fakeUuid);
+    expect(eventsService.remove).toHaveBeenCalled();
   });
 
-  it('eventsController.create() should add a single event', async () => {
+  it('eventsController.create() should call eventsService.create()', async () => {
     let result: Promise<Event>;
-    let fakeEvent: CreateEventDto;
     jest.spyOn(eventsService, 'create').mockImplementation(() => result);
-    expect(await eventsController.create(fakeEvent)).toBe(result);
+    await eventsController.create(fakeEvent);
+    expect(eventsService.create).toHaveBeenCalled();
   });
 });
