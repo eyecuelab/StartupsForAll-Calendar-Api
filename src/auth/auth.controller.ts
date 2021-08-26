@@ -2,7 +2,6 @@ import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/c
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { LoginUserDto } from '../users/dto/loginUser.dto';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
@@ -17,15 +16,11 @@ export class AuthController {
     return this.authService.login(request.user);
   }
 
-  @Post('register')
-  async register(@Body() registrationData: RegisterDto) {
-    return this.authService.register(registrationData);
-  }
-
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  async getProfile(@Req() req) {
+  @Get('admin')
+  async getAdmin(@Req() req) {
+    // TODO: make this return more meaningful info, events queue controls?
     return req.user;
   }
 }

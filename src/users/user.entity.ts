@@ -1,5 +1,5 @@
 // import { Rating } from '../ratings/rating.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, BeforeInsert } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')
@@ -26,7 +26,4 @@ export class User {
 
   @CreateDateColumn()
   updated_at?: Date;
-
-  // @OneToMany(() => Rating, (rating) => rating.user)
-  // ratings: Rating[];
 }
