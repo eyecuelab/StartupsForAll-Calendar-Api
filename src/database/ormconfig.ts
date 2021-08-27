@@ -27,6 +27,7 @@ export const ormconfig: TypeOrmModuleOptions = {
   migrationsRun: env !== 'test',
   synchronize: env === 'test',
   logger: 'advanced-console',
+  logging: true,
   cli: {
     migrationsDir: 'src/database/migrations',
   },

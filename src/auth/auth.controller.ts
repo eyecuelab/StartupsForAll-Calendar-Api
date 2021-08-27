@@ -19,7 +19,7 @@ export class AuthController {
   @Get('admin')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  async getAdmin(@Req() req) {
-    return req.user;
+  async getAdmin(@Req() request) {
+    return request.user;
   }
 }
