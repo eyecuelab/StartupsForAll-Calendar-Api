@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateEventKeyDto {
+export class EventKeyUserDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  username: string;
+
   @ApiProperty()
   @IsNotEmpty()
   password: string;

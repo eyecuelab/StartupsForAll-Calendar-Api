@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { EventKeyUserDto } from 'src/users/dto/eventKeyUser.dto';
 
 @Controller('events')
 export class EventsController {
@@ -14,6 +15,11 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   create(@Body() createEventDto: CreateEventDto) {
     return this.eventsService.create(createEventDto);
+  }
+
+  @Post('get-event-creation-permission')
+  registerEvent(@Body() data: EventKeyUserDto, @Req() request) {
+    return this.eventsService.getNewEventPermission(request.body.password);
   }
 
   @Get()
