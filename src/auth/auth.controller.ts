@@ -22,4 +22,11 @@ export class AuthController {
   async getAdmin(@Req() request) {
     return request.user;
   }
+
+  @Post('confirm-privileges')
+  async loginAsEvent(@Body() data: LoginUserDto, @Req() request) {
+    request.user.username = 'eventKey';
+    console.log('posted to login as event creator', request);
+    return this.authService.login(request.user);
+  }
 }

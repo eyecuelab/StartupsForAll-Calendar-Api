@@ -41,19 +41,4 @@ export class EventsService {
   async remove(id: string): Promise<DeleteResult> {
     return await this.eventsRespository.delete({ id });
   }
-
-  async getNewEventPermission(password: string): Promise<any> {
-    const keyUser = await this.usersRepository.findOne({
-      where: {
-        username: 'eventKey',
-      },
-    });
-    if (!keyUser) return null;
-    const isValid = await bcrypt.compare(password, keyUser.password);
-    if (isValid) {
-      delete keyUser.password;
-      return keyUser;
-    }
-    return null;
-  }
 }
