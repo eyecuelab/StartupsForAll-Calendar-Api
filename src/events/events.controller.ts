@@ -13,7 +13,6 @@ export class EventsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   create(@Body() createEventDto: CreateEventDto) {
-    console.log('events controller - create - create event dto', createEventDto);
     return this.eventsService.create(createEventDto);
   }
 

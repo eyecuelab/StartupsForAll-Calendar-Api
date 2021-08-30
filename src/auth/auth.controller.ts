@@ -5,10 +5,11 @@ import { LoginUserDto } from '../users/dto/loginUser.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { UsersService } from 'src/users/users.service';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly usersService: UsersService) {}
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
@@ -26,8 +27,10 @@ export class AuthController {
 
   @Post('confirm-privileges')
   async loginAsEvent(@Body() data: LoginUserDto) {
+    // get the ID of the eventKey user, as this will later be required to create events w/this account
+    const { id } = await this.usersService.findByUsername('eventKey');
     const user: User = {
-      id: null,
+      id: id,
       email: null,
       hashPassword: null,
       username: 'eventKey',

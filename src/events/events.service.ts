@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -21,11 +20,8 @@ export class EventsService {
   }
 
   async create(eventData: CreateEventDto): Promise<Event> {
-    console.log('events service - create - eventData', eventData);
     const newEvent = this.eventsRespository.create({ ...eventData });
-    console.log('1');
     await this.eventsRespository.save(newEvent);
-    console.log('2');
     return newEvent;
   }
 
