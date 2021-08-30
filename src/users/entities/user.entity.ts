@@ -20,6 +20,9 @@ export class User {
   @Column({ nullable: false, unique: true })
   email: string;
 
+  @Column({ nullable: false })
+  isAdmin: boolean;
+
   @CreateDateColumn()
   created_at?: Date;
 

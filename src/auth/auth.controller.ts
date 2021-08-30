@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { User } from './../users/user.entity';
+import { User } from '../users/entities/user.entity';
 import { LoginUserDto } from '../users/dto/loginUser.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
