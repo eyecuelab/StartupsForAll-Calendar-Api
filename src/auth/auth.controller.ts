@@ -1,5 +1,6 @@
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { User } from './../users/user.entity';
 import { LoginUserDto } from '../users/dto/loginUser.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -24,9 +25,14 @@ export class AuthController {
   }
 
   @Post('confirm-privileges')
-  async loginAsEvent(@Body() data: LoginUserDto, @Req() request) {
-    request.user.username = 'eventKey';
-    console.log('posted to login as event creator', request);
-    return this.authService.login(request.user);
+  async loginAsEvent(@Body() data: LoginUserDto) {
+    const user: User = {
+      id: null,
+      email: null,
+      hashPassword: null,
+      username: 'eventKey',
+      password: data.password,
+    };
+    return this.authService.login(user);
   }
 }
