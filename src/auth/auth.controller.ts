@@ -30,11 +30,12 @@ export class AuthController {
     // get the ID of the eventKey user, as this will later be required to create events w/this account
     const { id } = await this.usersService.findByUsername('eventKey');
     const user: User = {
-      id: id,
       email: null,
       hashPassword: null,
-      username: 'eventKey',
+      id: id,
+      isAdmin: false,
       password: data.password,
+      username: 'eventKey',
     };
     return this.authService.login(user);
   }
