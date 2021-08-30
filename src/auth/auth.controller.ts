@@ -33,7 +33,7 @@ export class AuthController {
       email: null,
       hashPassword: null,
       id: id,
-      isAdmin: false,
+      is_admin: false,
       password: data.password,
       username: 'eventKey',
     };
