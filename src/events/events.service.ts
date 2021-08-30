@@ -4,15 +4,12 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event)
-    private eventsRespository: Repository<Event>,
-    @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private eventsRespository: Repository<Event>
   ) {}
 
   async findAll(): Promise<Event[]> {
