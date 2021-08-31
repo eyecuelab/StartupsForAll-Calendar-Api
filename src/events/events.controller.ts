@@ -1,4 +1,3 @@
-import * as axios from '@nestjs/common/node_modules/axios';
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';

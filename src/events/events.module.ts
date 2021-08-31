@@ -3,14 +3,13 @@ import { EventsService } from './events.service';
 import { Event } from './entities/event.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsController } from './events.controller';
-import { UsersModule } from 'src/users/users.module';
-import { EventbriteModule } from 'src/eventbrite/eventbrite.module';
-import { EventbriteService } from 'src/eventbrite/eventbrite.service';
+import { UsersModule } from '../users/users.module';
+import { EventbriteModule } from '../eventbrite/eventbrite.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event]), UsersModule, EventbriteModule, EventbriteService],
+  imports: [TypeOrmModule.forFeature([Event]), UsersModule, EventbriteModule],
   controllers: [EventsController],
-  providers: [EventsService, EventbriteModule, EventbriteService],
+  providers: [EventsService],
   exports: [TypeOrmModule, EventsService],
 })
 export class EventsModule {}

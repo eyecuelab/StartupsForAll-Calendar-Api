@@ -8,7 +8,7 @@ import { EventbriteService } from './eventbrite.service';
       headers: { Authorization: `Bearer ${process.env.EVENTBRITE_API}` },
     }),
   ],
-  providers: [EventbriteService, HttpModule],
-  exports: [HttpModule],
+  providers: [EventbriteService],
+  exports: [EventbriteService],
 })
 export class EventbriteModule {}

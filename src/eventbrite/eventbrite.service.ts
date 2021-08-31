@@ -1,4 +1,4 @@
-import { AxiosResponse } from '@nestjs/axios/node_modules/axios';
+import { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
@@ -7,8 +7,8 @@ import { map, Observable } from 'rxjs';
 export class EventbriteService {
   constructor(private httpService: HttpService) {}
 
-  getEventBrite(id: string): Observable<AxiosResponse<any>> {
+  getEventBrite(id: string): Observable<AxiosResponse> {
     const url = `https://www.eventbriteapi.com/v3/events/${id}/`;
-    return this.httpService.get(url).pipe(map((res) => res));
+    return this.httpService.get(url).pipe(map((res) => res.data));
   }
 }
