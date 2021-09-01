@@ -7,19 +7,30 @@ import FormattedEvent from './formattedEvent';
 export class EventbriteService {
   constructor(private httpService: HttpService) {}
 
-  getEventBrite(id: string): Observable<FormattedEvent> {
+  getEventBrite(id: string): any {
     const url = `https://www.eventbriteapi.com/v3/events/${id}/`;
     return this.httpService.get(url).pipe(map((res) => res.data));
   }
 
-  async formatEventData(data: any): Promise<any> {
+  // async formatEventData(data: any): Promise<any> {
+  formatEventData(data: any) {
     console.log('formatEventData, data:', data, typeof data);
-    const serialized = await data.subscribe((res) => {
-      console.log('got more data', res);
-      return res;
-    });
-    console.log('serialized', serialized);
-    return {};
+    // const formatted = [];
+    // return data.subscribe({
+    //   next(x) {
+    //     console.log('got data:', x);
+    //     return x;
+    //   },
+    //   complete() {
+    //     console.log('done');
+    //   },
+    //   error(e) {
+    //     console.log('error', e);
+    //   },
+    // });
+    // console.log('after. formatted:', formatted);
+    // return {};
+    // console.log('serialized', serialized);
     const formattedData: FormattedEvent = {
       name: data.name.text,
       created: data.created,

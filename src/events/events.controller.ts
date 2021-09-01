@@ -5,6 +5,8 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { EventbriteService } from 'src/eventbrite/eventbrite.service';
+import { Observable } from 'rxjs';
+import { EventBriteEventDto } from 'src/eventbrite/dto/eventbrite.dto';
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService, private readonly eventBriteService: EventbriteService) {}
@@ -27,9 +29,8 @@ export class EventsController {
   }
 
   @Get('event-brite/:id')
-  async getEventBriteData(@Param('id') id: string) {
-    const rawData = this.eventBriteService.getEventBrite(id);
-    return await this.eventBriteService.formatEventData(rawData);
+  async getEventBriteData(@Param('id') id: string): Promise<Observable<EventBriteEventDto>> {
+    return this.eventBriteService.getEventBrite(id);
   }
 
   @Patch(':uuid')
