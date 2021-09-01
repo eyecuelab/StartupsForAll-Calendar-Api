@@ -2,10 +2,12 @@ import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/c
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
 import { LoginUserDto } from '../users/dto/loginUser.dto';
+import { EventKeyUserDto } from '../users/dto/eventKeyUser.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UsersService } from 'src/users/users.service';
+import { EventKeyAuthGuard } from './guards/event-key-auth.guard';
 
 @Controller()
 export class AuthController {
@@ -26,17 +28,19 @@ export class AuthController {
   }
 
   @Post('confirm-privileges')
-  async loginAsEvent(@Body() data: LoginUserDto) {
+  @UseGuards(EventKeyAuthGuard)
+  async loginAsEvent(@Body() data: EventKeyUserDto) {
     // get the ID of the eventKey user, as this will later be required to create events w/this account
     const { id } = await this.usersService.findByUsername('eventKey');
     const user: User = {
-      email: null,
+      email: data.email,
       hashPassword: null,
       id: id,
       is_admin: false,
       password: data.password,
       username: 'eventKey',
     };
-    return this.authService.login(user);
+    const { access_token } = await this.authService.login(user);
+    return { access_token: access_token, name: data.name, email: data.email };
   }
 }

@@ -6,6 +6,7 @@ import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { EventKeyStrategy } from './strategies/eventKey.strategy';
 import { AuthController } from './auth.controller';
 
 @Module({
@@ -21,7 +22,7 @@ import { AuthController } from './auth.controller';
       }),
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, EventKeyStrategy, LocalStrategy, JwtStrategy],
   exports: [AuthService],
   controllers: [AuthController],
 })
