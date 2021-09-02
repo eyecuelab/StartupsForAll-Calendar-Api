@@ -6,7 +6,7 @@ import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { EventbriteService } from 'src/eventbrite/eventbrite.service';
 import { Observable } from 'rxjs';
-import { EventBriteEventDto } from 'src/eventbrite/dto/eventbrite.dto';
+import FormattedEvent from 'src/eventbrite/formattedEvent';
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService, private readonly eventBriteService: EventbriteService) {}
@@ -29,7 +29,7 @@ export class EventsController {
   }
 
   @Get('event-brite/:id')
-  async getEventBriteData(@Param('id') id: string): Promise<Observable<EventBriteEventDto>> {
+  async getEventBriteData(@Param('id') id: string): Promise<Observable<FormattedEvent>> {
     return this.eventBriteService.getEventBrite(id);
   }
 
