@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsInt, IsNotEmpty, IsUrl, IsEnum } from 'class-validator';
-import { category } from './../eventCategory.enum';
-import { categoryText } from './../eventCategoryText.enum';
+import { Category } from '../entities/category.enum';
+import { categoryText } from '../entities/eventCategoryText.enum';
 
 export class CreateEventDto {
   @ApiProperty()
@@ -14,8 +14,8 @@ export class CreateEventDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(category)
-  readonly category: category;
+  @IsEnum(Category)
+  readonly category: Category;
 
   @ApiProperty()
   @IsNotEmpty()

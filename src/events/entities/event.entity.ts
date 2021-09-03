@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-import { category } from './../eventCategory.enum';
-import { categoryText } from './../eventCategoryText.enum';
-
+import { categoryText } from './CategoryText.enum';
+import { Category } from './Category.enum';
+import { Topics } from './Topics.enum';
 @Entity('event')
 export class Event {
   @PrimaryGeneratedColumn('uuid')
@@ -14,7 +14,7 @@ export class Event {
   description: string;
 
   @Column()
-  category: category;
+  category: Category;
 
   @Column('text')
   event_link: string;
@@ -52,7 +52,5 @@ export class Event {
   agenda?: string;
 
   @Column('simple-array')
-  tags?: string[];
-  // (optional) -> can be keywords or emoji(s)
-  // TODO change me into an enum?
+  topics?: Topics[];
 }
