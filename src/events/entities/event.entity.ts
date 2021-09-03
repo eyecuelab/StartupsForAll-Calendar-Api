@@ -16,11 +16,14 @@ export class Event {
   @Column()
   category: Category;
 
-  @Column('text')
-  event_link: string;
+  @Column()
+  creator_email?: string;
+
+  @Column()
+  creator_name?: string;
 
   @Column('text')
-  ticket_link?: string;
+  url: string;
 
   @Column('int')
   cost: number;
@@ -29,24 +32,23 @@ export class Event {
   category_text: categoryText;
 
   @Column('date')
-  when: Date;
+  start_date: Date;
+
+  @Column('date')
+  end_date: Date;
+
+  @Column('text')
+  start_time: string;
+
+  @Column('text')
+  end_time: string;
 
   @Column('text')
   where: string;
   // -> Physical address or Teleconference link
 
-  @Column('text')
-  who: string;
-  // -> by or Referred by (name in brackets)
-
   @CreateDateColumn()
   created_at?: Date;
-
-  @Column()
-  creator_email?: string;
-
-  @Column()
-  creator_name?: string;
 
   @Column('simple-array')
   panelists?: string[];

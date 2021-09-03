@@ -28,15 +28,9 @@ export class CreateEventDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsUrl()
-  readonly event_link: string;
+  readonly url: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUrl()
-  readonly ticket_link: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   @IsInt()
   readonly cost: number;
 
@@ -48,26 +42,32 @@ export class CreateEventDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsDateString()
-  readonly when: Date;
+  readonly start_date: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsDateString()
+  readonly end_date: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly start_time: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly end_time: string;
 
   @ApiProperty()
   @IsNotEmpty()
   readonly where: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly who: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   readonly panelists: string[];
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly audience: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly agenda: string;
 
   @ApiProperty()

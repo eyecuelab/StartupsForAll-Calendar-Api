@@ -21,17 +21,18 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly category: Category;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUrl()
-  readonly event_link: string;
+  @IsEmail()
+  readonly creator_email: string;
+
+  @ApiProperty()
+  readonly creator_name: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsUrl()
-  readonly ticket_link: string;
+  readonly url: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsInt()
   readonly cost: number;
 
@@ -41,35 +42,34 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly category_text: categoryText;
 
   @ApiProperty()
-  @IsEmail()
-  readonly creator_email: string;
-
-  @ApiProperty()
-  readonly creator_name: string;
+  @IsNotEmpty()
+  @IsDateString()
+  readonly start_date: Date;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsDateString()
-  readonly when: Date;
+  readonly end_date: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly start_time: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly end_time: string;
 
   @ApiProperty()
   @IsNotEmpty()
   readonly where: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly who: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   readonly panelists: string[];
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly audience: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly agenda: string;
 
   @ApiProperty()
