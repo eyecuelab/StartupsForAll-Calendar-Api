@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsInt, IsNotEmpty, IsUrl, IsEnum } from 'class-validator';
-import { Category } from '../entities/category.enum';
-import { categoryText } from '../entities/eventCategoryText.enum';
+import { Category } from '../entities/Category.enum';
+import { categoryText } from '../entities/CategoryText.enum';
 
 export class CreateEventDto {
   @ApiProperty()
