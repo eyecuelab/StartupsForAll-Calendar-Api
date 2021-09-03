@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsUrl } from 'class-validator';
+import { IsDateString, IsEmail, IsEnum, IsInt, IsNotEmpty, IsUrl } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 import { CreateEventDto } from './create-event.dto';
 import { Category } from '../entities/Category.enum';
 import { categoryText } from '../entities/CategoryText.enum';
+import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
   @ApiProperty()
@@ -40,6 +41,13 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly category_text: categoryText;
 
   @ApiProperty()
+  @IsEmail()
+  readonly creator_email: string;
+
+  @ApiProperty()
+  readonly creator_name: string;
+
+  @ApiProperty()
   @IsNotEmpty()
   @IsDateString()
   readonly when: Date;
@@ -66,5 +74,5 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly tags: string[];
+  readonly topics: Topics[];
 }

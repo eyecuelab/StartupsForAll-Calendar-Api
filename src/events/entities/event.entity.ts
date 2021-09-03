@@ -42,6 +42,12 @@ export class Event {
   @CreateDateColumn()
   created_at?: Date;
 
+  @Column()
+  creator_email?: string;
+
+  @Column()
+  creator_name?: string;
+
   @Column('simple-array')
   panelists?: string[];
 
