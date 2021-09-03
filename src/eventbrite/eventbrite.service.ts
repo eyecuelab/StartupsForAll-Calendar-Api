@@ -25,7 +25,7 @@ export class EventbriteService {
           end: res.data.end,
           id: res.data.id,
           url: res.data.url,
-          logo: res.data.logo.url,
+          logo: res.data?.logo?.url,
           series_dates: res.data.series_dates,
         };
       })

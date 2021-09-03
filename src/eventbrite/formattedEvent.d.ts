@@ -11,8 +11,6 @@ export default interface FormattedEvent {
   end: Record<string, unknown>;
   id: string;
   url: string;
-  logo: string;
+  logo?: string;
   series_dates?: EventbriteSeries[];
 }
-
-// { id: number, name: string }[]
