@@ -45,7 +45,6 @@ export class Event {
 
   @Column('text')
   where: string;
-  // -> Physical address or Teleconference link
 
   @CreateDateColumn()
   created_at?: Date;
@@ -61,4 +60,7 @@ export class Event {
 
   @Column('simple-array')
   topics?: Topics[];
+
+  @Column('boolean')
+  promoted?: true | false;
 }
