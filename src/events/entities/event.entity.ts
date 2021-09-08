@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-import { categoryText } from './CategoryText.enum';
+import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
@@ -8,13 +8,28 @@ export class Event {
   id: string;
 
   @Column('text')
-  title: string;
+  agenda?: string;
+
+  @Column('text')
+  audience?: string;
 
   @Column('text')
   description: string;
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: Category,
+  })
   category: Category;
+
+  @Column({
+    type: 'enum',
+    enum: CategoryText,
+  })
+  category_text: CategoryText;
+
+  @Column('int')
+  cost: number;
 
   @Column()
   creator_email?: string;
@@ -22,14 +37,26 @@ export class Event {
   @Column()
   creator_name?: string;
 
+  @CreateDateColumn()
+  created_at?: Date;
+
+  @Column('text')
+  location: string;
+
+  @Column('simple-array')
+  panelists?: string[];
+
+  @Column('boolean')
+  promoted?: true | false;
+
+  @Column('text')
+  title: string;
+
+  @Column('simple-array')
+  topics?: Topics[];
+
   @Column('text')
   url: string;
-
-  @Column('int')
-  cost: number;
-
-  @Column()
-  category_text: categoryText;
 
   @Column('date')
   start_date: Date;
@@ -42,25 +69,4 @@ export class Event {
 
   @Column('text')
   end_time: string;
-
-  @Column('text')
-  where: string;
-
-  @CreateDateColumn()
-  created_at?: Date;
-
-  @Column('simple-array')
-  panelists?: string[];
-
-  @Column('text')
-  audience?: string;
-
-  @Column('text')
-  agenda?: string;
-
-  @Column('simple-array')
-  topics?: Topics[];
-
-  @Column('boolean')
-  promoted?: true | false;
 }
