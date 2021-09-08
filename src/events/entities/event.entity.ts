@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-import { categoryText } from './CategoryText.enum';
+import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
@@ -13,7 +13,11 @@ export class Event {
   @Column('text')
   description: string;
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: Category,
+    default: Category.SFA,
+  })
   category: Category;
 
   @Column()
@@ -28,8 +32,12 @@ export class Event {
   @Column('int')
   cost: number;
 
-  @Column()
-  category_text: categoryText;
+  @Column({
+    type: 'enum',
+    enum: CategoryText,
+    default: CategoryText.SFA,
+  })
+  category_text: CategoryText;
 
   @Column('date')
   start_date: Date;
@@ -58,7 +66,13 @@ export class Event {
   @Column('text')
   agenda?: string;
 
-  @Column('simple-array')
+  @Column({
+    type: 'enum',
+    enum: Topics,
+    array: true,
+    default: null,
+    nullable: true,
+  })
   topics?: Topics[];
 
   @Column('boolean')

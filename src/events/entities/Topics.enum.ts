@@ -1,8 +1,8 @@
 export enum Topics {
-  '💵 Funding / Financial',
-  '☕️ Action Cafe',
-  '🚀 Open Space',
-  '🌎 Social Impact',
-  '🧩 Strategy',
-  '🔍 User Research',
+  FUNDING = '💵 Funding / Financial',
+  ACTION = '☕️ Action Cafe',
+  OPEN = '🚀 Open Space',
+  SOCIAL = '🌎 Social Impact',
+  STRATEGY = '🧩 Strategy',
+  RESEARCH = '🔍 User Research',
 }

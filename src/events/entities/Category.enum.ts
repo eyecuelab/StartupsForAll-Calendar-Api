@@ -1,5 +1,5 @@
 export enum Category {
-  'Founders',
-  'Experts',
-  'Startups For All',
+  FOUNDERS = 'Founders',
+  EXPERS = 'Experts',
+  SFA = 'Startups For All',
 }

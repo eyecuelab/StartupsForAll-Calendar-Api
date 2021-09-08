@@ -3,7 +3,7 @@ import { IsDateString, IsEmail, IsEnum, IsInt, IsNotEmpty, IsUrl } from 'class-v
 import { PartialType } from '@nestjs/swagger';
 import { CreateEventDto } from './create-event.dto';
 import { Category } from '../entities/Category.enum';
-import { categoryText } from '../entities/CategoryText.enum';
+import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
@@ -38,8 +38,8 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(categoryText)
-  readonly category_text: categoryText;
+  @IsEnum(CategoryText)
+  readonly category_text: CategoryText;
 
   @ApiProperty()
   @IsNotEmpty()
