@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
-import FormattedEvent from './formattedEvent';
+import FormattedEvent from './EventbriteEvent';
 
 @Injectable()
 export class EventbriteService {
@@ -13,7 +13,8 @@ export class EventbriteService {
     // return this.httpService.get(url).pipe(map((res) => res.data));
     const res = this.httpService.get(url).pipe(
       map((res: AxiosResponse) => {
-        console.log('got results:', res.data);
+        console.log('got results:', res.data, res.data.start.utc, res.data.end.utc);
+        // somewhere in here, figure out if multi-day series or single event and update start/end date/times...
         return {
           name: res.data.name.text,
           created: res.data.created,
@@ -22,8 +23,10 @@ export class EventbriteService {
           currency: res.data.currency,
           description: res.data.description.text,
           summary: res.data.summary,
-          start: res.data.start,
-          end: res.data.end,
+          start_date: res.data.series_dates ? res.data.series_dates[0].start.utc : res.data.start.utc,
+          end_date: res.data.series_dates ? res.data.series_dates[0].end.utc : res.data.end.utc,
+          start_time: res.data.series_dates ? res.data.series_dates[0].start.utc : res.data.start.utc,
+          end_time: res.data.series_dates ? res.data.series_dates[0].end.utc : res.data.end.utc,
           id: res.data.id,
           url: res.data.url,
           logo: res.data?.logo?.url,
