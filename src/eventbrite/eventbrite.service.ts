@@ -13,10 +13,16 @@ export class EventbriteService {
     // return this.httpService.get(url).pipe(map((res) => res.data));
     const res = this.httpService.get(url).pipe(
       map((res: AxiosResponse) => {
-        console.log('got results:', res.data, res.data.start.utc, res.data.end.utc);
-        // somewhere in here, figure out if multi-day series or single event and update start/end date/times...
+        // console.log(
+        //   'got results:',
+        //   res.data.series_dates,
+        //   res.data.start.utc,
+        //   res.data.end.utc,
+        //   res.data.series_dates[0].start.utc
+        // );
+        // TODO: somewhere in here, figure out if multi-day series or single event and update start/end date/times...
         return {
-          name: res.data.name.text,
+          title: res.data.name.text,
           created: res.data.created,
           changed: res.data.changed,
           cost: res.data?.ticket_classes[0]?.cost?.display,
