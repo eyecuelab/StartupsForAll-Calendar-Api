@@ -15,6 +15,7 @@ export class EventsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   create(@Body() createEventDto: CreateEventDto) {
+    console.log('HIT POST NEW EVENT, w/createEventDto:', createEventDto);
     return this.eventsService.create(createEventDto);
   }
 
