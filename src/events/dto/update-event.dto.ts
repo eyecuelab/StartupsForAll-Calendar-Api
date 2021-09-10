@@ -47,7 +47,6 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly start_date: Date;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsDateString()
   readonly end_date: Date;
 

@@ -8,10 +8,10 @@ export class Event {
   id: string;
 
   @Column('text')
-  agenda?: string;
+  agenda?: string | null;
 
   @Column('text')
-  audience?: string;
+  audience?: string | null;
 
   @Column('text')
   description: string;
@@ -32,10 +32,10 @@ export class Event {
   cost: number;
 
   @Column()
-  creator_email?: string;
+  creator_email?: string | null;
 
   @Column()
-  creator_name?: string;
+  creator_name?: string | null;
 
   @CreateDateColumn()
   created_at?: Date;
@@ -44,7 +44,7 @@ export class Event {
   location: string;
 
   @Column('simple-array')
-  panelists?: string[];
+  panelists?: string[] | null;
 
   @Column('boolean')
   promoted?: true | false;
@@ -62,7 +62,7 @@ export class Event {
   start_date: Date;
 
   @Column('date')
-  end_date: Date;
+  end_date?: Date | null;
 
   @Column('text')
   start_time: string;
