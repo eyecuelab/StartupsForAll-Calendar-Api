@@ -16,6 +16,16 @@ export class EventsService {
     return this.eventsRespository.find();
   }
 
+  async findAllDateASC(): Promise<Event[]> {
+    const events = this.eventsRespository.find();
+    const sortedEvents = (await events).sort(
+      (a, b) =>
+        parseInt(a.start_date.toString().replace(/-/g, '')) - parseInt(b.start_date.toString().replace(/-/g, ''))
+    );
+    console.log('SortedEvents', sortedEvents);
+    return sortedEvents;
+  }
+
   async create(eventData: CreateEventDto): Promise<Event> {
     const newEvent = this.eventsRespository.create({ ...eventData });
     await this.eventsRespository.save(newEvent);

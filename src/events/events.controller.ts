@@ -24,6 +24,11 @@ export class EventsController {
     return this.eventsService.findAll();
   }
 
+  @Get('/ordered_date')
+  findAllDateASC() {
+    return this.eventsService.findAllDateASC();
+  }
+
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.eventsService.findOne(uuid);
