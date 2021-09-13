@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { AdvancedConsoleLogger, DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -17,13 +17,7 @@ export class EventsService {
   }
 
   async findAllDateASC(): Promise<Event[]> {
-    const events = this.eventsRespository.find();
-    const sortedEvents = (await events).sort(
-      (a, b) =>
-        parseInt(a.start_date.toString().replace(/-/g, '')) - parseInt(b.start_date.toString().replace(/-/g, ''))
-    );
-    console.log('SortedEvents', sortedEvents);
-    return sortedEvents;
+    return this.eventsRespository.find({ order: { start_date: 'ASC' } });
   }
 
   async create(eventData: CreateEventDto): Promise<Event> {
