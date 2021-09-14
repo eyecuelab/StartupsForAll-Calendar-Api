@@ -33,7 +33,6 @@ export class CreateEventDto {
   readonly creator_name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly description: string;
 
   @ApiProperty()
@@ -49,7 +48,6 @@ export class CreateEventDto {
   readonly start_date: Date;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsDateString()
   readonly end_date: Date;
 
@@ -79,7 +77,6 @@ export class CreateEventDto {
   readonly topics: Topics[];
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsUrl()
   readonly url: string;
 }

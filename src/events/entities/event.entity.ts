@@ -7,11 +7,6 @@ export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // @Column({
-  //     unique: true,
-  //     nullable: true,
-  // })
-  // resetPasswordToken!: string;
   @Column({
     type: 'text',
     nullable: true,
@@ -66,7 +61,10 @@ export class Event {
   @Column('date')
   start_date: Date;
 
-  @Column('date')
+  @Column({
+    type: 'date',
+    nullable: true,
+  })
   end_date: Date;
 
   @Column('text')
@@ -75,7 +73,10 @@ export class Event {
   @Column('text')
   end_time: string;
 
-  @Column('simple-array')
+  @Column({
+    type: 'simple-array',
+    nullable: true,
+  })
   panelists?: string[];
 
   @Column({

@@ -35,7 +35,6 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly creator_name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly description: string;
 
   @ApiProperty()
@@ -51,7 +50,6 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly start_date: Date;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsDateString()
   readonly end_date: Date;
 
@@ -81,7 +79,6 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly topics: Topics[];
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsUrl()
   readonly url: string;
 }
