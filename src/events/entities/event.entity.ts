@@ -7,10 +7,21 @@ export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
+  // @Column({
+  //     unique: true,
+  //     nullable: true,
+  // })
+  // resetPasswordToken!: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   agenda?: string;
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   audience?: string;
 
   @Column()
@@ -25,19 +36,31 @@ export class Event {
   @CreateDateColumn()
   created_at?: Date;
 
-  @Column()
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   creator_email?: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   creator_name?: string;
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   description?: string;
 
   @Column('text')
   location: string;
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   logo?: string;
 
   @Column('date')
@@ -55,7 +78,10 @@ export class Event {
   @Column('simple-array')
   panelists?: string[];
 
-  @Column('boolean')
+  @Column({
+    type: 'boolean',
+    nullable: true,
+  })
   promoted?: true | false;
 
   @Column('text')
@@ -67,6 +93,9 @@ export class Event {
   @Column('simple-array')
   topics?: Topics[];
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
   url: string;
 }
