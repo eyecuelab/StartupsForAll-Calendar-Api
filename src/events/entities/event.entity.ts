@@ -8,13 +8,22 @@ export class Event {
   id: string;
 
   @Column('text')
-  title: string;
+  agenda?: string;
 
   @Column('text')
-  description: string;
+  audience?: string;
 
   @Column()
   category: Category;
+
+  @Column()
+  category_text: categoryText;
+
+  @Column('int')
+  cost: number;
+
+  @CreateDateColumn()
+  created_at?: Date;
 
   @Column()
   creator_email?: string;
@@ -23,13 +32,13 @@ export class Event {
   creator_name?: string;
 
   @Column('text')
-  url: string;
+  description?: string;
 
-  @Column('int')
-  cost: number;
+  @Column('text')
+  location: string;
 
-  @Column()
-  category_text: categoryText;
+  @Column('text')
+  logo?: string;
 
   @Column('date')
   start_date: Date;
@@ -43,24 +52,21 @@ export class Event {
   @Column('text')
   end_time: string;
 
-  @Column('text')
-  where: string;
-
-  @CreateDateColumn()
-  created_at?: Date;
-
   @Column('simple-array')
   panelists?: string[];
 
-  @Column('text')
-  audience?: string;
+  @Column('boolean')
+  promoted?: true | false;
 
   @Column('text')
-  agenda?: string;
+  summary?: string;
+
+  @Column('text')
+  title: string;
 
   @Column('simple-array')
   topics?: Topics[];
 
-  @Column('boolean')
-  promoted?: true | false;
+  @Column('text')
+  url: string;
 }

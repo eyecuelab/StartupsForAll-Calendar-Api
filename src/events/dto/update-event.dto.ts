@@ -8,17 +8,24 @@ import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
   @ApiProperty()
-  @IsNotEmpty()
-  readonly title: string;
+  readonly agenda: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly description: string;
+  readonly audience: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(Category)
   readonly category: Category;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEnum(categoryText)
+  readonly category_text: categoryText;
+
+  @ApiProperty()
+  @IsInt()
+  readonly cost: number;
 
   @ApiProperty()
   @IsEmail()
@@ -29,17 +36,14 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsUrl()
-  readonly url: string;
-
-  @ApiProperty()
-  @IsInt()
-  readonly cost: number;
+  readonly description: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(categoryText)
-  readonly category_text: categoryText;
+  readonly location: string;
+
+  @ApiProperty()
+  readonly logo: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -60,19 +64,24 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly end_time: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly where: string;
-
-  @ApiProperty()
   readonly panelists: string[];
 
   @ApiProperty()
-  readonly audience: string;
+  readonly promoted: boolean;
 
   @ApiProperty()
-  readonly agenda: string;
+  readonly summary: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly title: string;
 
   @ApiProperty()
   @IsNotEmpty()
   readonly topics: Topics[];
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUrl()
+  readonly url: string;
 }
