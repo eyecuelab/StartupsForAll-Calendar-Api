@@ -98,5 +98,5 @@ export class Event {
     type: 'text',
     nullable: true,
   })
-  url: string;
+  url?: string;
 }

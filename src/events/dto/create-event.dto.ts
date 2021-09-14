@@ -77,6 +77,5 @@ export class CreateEventDto {
   readonly topics: Topics[];
 
   @ApiProperty()
-  @IsUrl()
   readonly url?: string;
 }

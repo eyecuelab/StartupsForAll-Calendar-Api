@@ -79,6 +79,5 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly topics: Topics[];
 
   @ApiProperty()
-  @IsUrl()
   readonly url?: string;
 }
