@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-import { categoryText } from './CategoryText.enum';
+import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
@@ -23,7 +23,7 @@ export class Event {
   category: Category;
 
   @Column()
-  category_text: categoryText;
+  category_text: CategoryText;
 
   @Column('int')
   cost: number;
