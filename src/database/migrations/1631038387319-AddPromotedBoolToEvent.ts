@@ -4,7 +4,7 @@ export class AddPromotedBoolToEvent1631038387319 implements MigrationInterface {
   name = 'AddPromotedBoolToEvent1631038387319';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "event" ADD "promoted" boolean NOT NULL`);
+    await queryRunner.query(`ALTER TABLE "event" ADD "promoted" boolean`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
