@@ -13,7 +13,42 @@ export class EventsService {
   ) {}
 
   async findAll(): Promise<Event[]> {
+    console.log('hit find all service');
     return this.eventsRespository.find();
+  }
+
+  async findByQuery(): Promise<Event[]> {
+    const result = await this.eventsRespository
+      .createQueryBuilder()
+      // select from the events table
+      .select('event')
+      // create an alias of type Event called event, used later in the query
+      .from(Event, 'event')
+      // use :title as a parameter instead of interpolating string as that allows sql injection
+      .where('event.title = :title', { title: 'Test' })
+      // optional additional where filters
+      // .andWhere('event.blah = :alsoMe', { blah: 'Something Else' })
+      // ascending, descending results
+      .orderBy('event.start_date', 'ASC')
+      // optional secondary/tertiary ordering
+      // .addOrderBy('event.title', 'ASC')
+      // option to print the raw sql to console, used for testing
+      .printSql()
+      // get more than one, maybe use getManyOrFail() instead?
+      .getMany();
+    console.log('findByQuery got result:', result);
+    return result;
+  }
+
+  async findByCategory(category: string): Promise<Event[]> {
+    console.log('hit the find by category service');
+    return await this.eventsRespository
+      .createQueryBuilder()
+      .select('event')
+      .from(Event, 'events')
+      .where('events.category = :category', { category: category })
+      // .orderBy('events.start_date', 'ASC')
+      .getMany();
   }
 
   async create(eventData: CreateEventDto): Promise<Event> {

@@ -18,14 +18,21 @@ export class EventsController {
     return this.eventsService.create(createEventDto);
   }
 
-  @Get()
-  findAll() {
-    return this.eventsService.findAll();
-  }
-
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.eventsService.findOne(uuid);
+  }
+
+  @Get('/?:category')
+  findByCategory(@Param('category') category: string) {
+    console.log('hit the category controller');
+    return this.eventsService.findByCategory(category);
+  }
+
+  @Get()
+  findAll() {
+    console.log('hit find all controller');
+    return this.eventsService.findAll();
   }
 
   @Get('event-brite/:id')
