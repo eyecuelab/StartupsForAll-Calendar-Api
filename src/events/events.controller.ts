@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -7,6 +7,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { EventbriteService } from 'src/eventbrite/eventbrite.service';
 import { Observable } from 'rxjs';
 import FormattedEvent from 'src/eventbrite/formattedEvent';
+import { EventsQueryDto } from './dto/events-query.dto';
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService, private readonly eventBriteService: EventbriteService) {}
@@ -23,17 +24,20 @@ export class EventsController {
     return this.eventsService.findOne(uuid);
   }
 
-  @Get('/?:category')
-  findByCategory(@Param('category') category: string) {
-    console.log('hit the category controller');
-    return this.eventsService.findByCategory(category);
-  }
-
   @Get()
   findAll() {
-    console.log('hit find all controller');
     return this.eventsService.findAll();
   }
+
+  // @Get()
+  // findByCategory(@Query() query: EventsQueryDto) {
+  //   return this.eventsService.findAll(query);
+  // }
+  // @Get()
+  // findAll() {
+  //   console.log('hit find all controller');
+  //   return this.eventsService.findAll();
+  // }
 
   @Get('event-brite/:id')
   async getEventBriteData(@Param('id') id: string): Promise<Observable<FormattedEvent>> {

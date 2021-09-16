@@ -45,6 +45,11 @@ export class Event {
 
   @Column({
     type: 'text',
+  })
+  custom_blurb?: string;
+
+  @Column({
+    type: 'text',
     nullable: true,
   })
   description?: string;

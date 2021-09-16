@@ -35,6 +35,9 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly creator_name?: string;
 
   @ApiProperty()
+  readonly custom_blurb?: string;
+
+  @ApiProperty()
   readonly description?: string;
 
   @ApiProperty()
