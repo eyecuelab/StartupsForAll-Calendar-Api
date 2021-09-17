@@ -5,6 +5,8 @@ import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { GoogleService } from 'src/google/google.service';
+import { EventsQueryDto } from './dto/events-query.dto';
+
 @Injectable()
 export class EventsService {
   constructor(
@@ -14,9 +16,13 @@ export class EventsService {
   ) {}
 
   async findAll(): Promise<Event[]> {
-    console.log('hit find all service');
     return this.eventsRespository.find();
   }
+
+  // async findAll(query: EventsQueryDto): Promise<Event[]> {
+  //   console.log('hit find all service w/query:', query);
+  //   return this.eventsRespository.find();
+  // }
 
   async findByQuery(): Promise<Event[]> {
     const result = await this.eventsRespository
@@ -50,6 +56,10 @@ export class EventsService {
       .where('events.category = :category', { category: category })
       // .orderBy('events.start_date', 'ASC')
       .getMany();
+
+    //   where({
+    // ...(name && {name: 'butternut squash'}),
+    // })
   }
 
   async create(eventData: CreateEventDto): Promise<Event> {
