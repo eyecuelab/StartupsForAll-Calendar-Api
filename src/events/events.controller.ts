@@ -25,19 +25,10 @@ export class EventsController {
   }
 
   @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  findAll(@Query() query?: EventsQueryDto) {
+    console.log('hit findAll in events controller w/query:', query);
+    return this.eventsService.findAll(query);
   }
-
-  // @Get()
-  // findByCategory(@Query() query: EventsQueryDto) {
-  //   return this.eventsService.findAll(query);
-  // }
-  // @Get()
-  // findAll() {
-  //   console.log('hit find all controller');
-  //   return this.eventsService.findAll();
-  // }
 
   @Get('event-brite/:id')
   async getEventBriteData(@Param('id') id: string): Promise<Observable<FormattedEvent>> {

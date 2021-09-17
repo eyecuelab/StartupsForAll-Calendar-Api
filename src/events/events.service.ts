@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -13,14 +13,31 @@ export class EventsService {
     private eventsRespository: Repository<Event>
   ) {}
 
-  async findAll(): Promise<Event[]> {
-    return this.eventsRespository.find();
-  }
-
-  // async findAll(query: EventsQueryDto): Promise<Event[]> {
-  //   console.log('hit find all service w/query:', query);
+  // async findAll(): Promise<Event[]> {
   //   return this.eventsRespository.find();
   // }
+
+  async findAll(query: EventsQueryDto): Promise<Event[]> {
+    // const qb = getRepository(Winecellar)
+    //         .createQueryBuilder("wine")
+    //         .orderBy("wine.Vintage", "ASC");
+
+    // if (colour !== 'any') {
+    //   qb.andWhere("wine.Colour = :Colour", { Colour: colour });
+    // }
+    // if (grape !== 'any') {
+    //   qb.andWhere("wine.Grape = :Grape", { Grape: grape });
+    // }
+
+    // const wineSelection = await qb.getRawMany();
+    console.log('hit find all service w/query:', query);
+    const qb = this.eventsRespository
+      .createQueryBuilder()
+      .select('events')
+      .from(Event, 'events')
+      .orderBy('events.start_date', 'ASC');
+    return await qb.getMany();
+  }
 
   async findByQuery(): Promise<Event[]> {
     const result = await this.eventsRespository

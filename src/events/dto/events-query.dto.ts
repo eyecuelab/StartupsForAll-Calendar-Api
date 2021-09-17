@@ -12,21 +12,15 @@ export class EventsQueryDto {
   readonly audience?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(Category)
   readonly category?: Category;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(CategoryText)
   readonly category_text?: CategoryText;
 
   @ApiProperty()
-  @IsInt()
   readonly cost?: number;
 
   @ApiProperty()
-  @IsEmail()
   readonly creator_email?: string;
 
   @ApiProperty()
@@ -39,27 +33,21 @@ export class EventsQueryDto {
   readonly description?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly location?: string;
 
   @ApiProperty()
   readonly logo?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsDateString()
   readonly start_date?: Date;
 
   @ApiProperty()
-  @IsDateString()
   readonly end_date?: Date;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly start_time?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly end_time?: string;
 
   @ApiProperty()
@@ -72,11 +60,9 @@ export class EventsQueryDto {
   readonly summary?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly title?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly topics?: Topics[];
 
   @ApiProperty()
