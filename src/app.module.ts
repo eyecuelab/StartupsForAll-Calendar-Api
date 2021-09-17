@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { ormconfig } from './database/ormconfig';
 import { EventsModule } from './events/events.module';
 import { EventbriteModule } from './eventbrite/eventbrite.module';
+import { GoogleModule } from './google/google.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EventbriteModule } from './eventbrite/eventbrite.module';
     UsersModule,
     EventsModule,
     EventbriteModule,
+    GoogleModule,
   ],
 })
 export class AppModule {}

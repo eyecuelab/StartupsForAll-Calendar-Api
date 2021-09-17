@@ -7,14 +7,21 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { EventbriteService } from 'src/eventbrite/eventbrite.service';
 import { Observable } from 'rxjs';
 import FormattedEvent from 'src/eventbrite/formattedEvent';
+import { GoogleService } from 'src/google/google.service';
 @Controller('events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService, private readonly eventBriteService: EventbriteService) {}
+  constructor(
+    private readonly eventsService: EventsService,
+    private readonly eventBriteService: EventbriteService,
+    private readonly googleService: GoogleService
+  ) {}
 
   @Post()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   create(@Body() createEventDto: CreateEventDto) {
+    //create post to google calendar at the same time
+    // this.googleService.addToGoogleCalendar(createEventDto)
     return this.eventsService.create(createEventDto);
   }
 
