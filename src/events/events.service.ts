@@ -4,12 +4,13 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-
+import { GoogleService } from 'src/google/google.service';
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event)
-    private eventsRespository: Repository<Event>
+    private eventsRespository: Repository<Event>,
+    private googleService: GoogleService
   ) {}
 
   async findAll(): Promise<Event[]> {
@@ -54,6 +55,7 @@ export class EventsService {
   async create(eventData: CreateEventDto): Promise<Event> {
     const newEvent = this.eventsRespository.create({ ...eventData });
     await this.eventsRespository.save(newEvent);
+    await this.googleService.addToGoogleCalendar(newEvent);
     return newEvent;
   }
 

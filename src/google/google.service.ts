@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 import { Injectable } from '@nestjs/common';
 import { topicsEmojis, googleCategoryColors, googleCategoryText } from './constants';
-import { CreateEventDto } from 'src/events/dto/create-event.dto';
+import { Event } from 'src/events/entities/event.entity';
 
 const { OAuth2 } = google.auth;
 
@@ -18,8 +18,7 @@ const calendar = google.calendar({
 
 @Injectable()
 export class GoogleService {
-  async addToGoogleCalendar(event: CreateEventDto) {
-    console.log('EVENT IN GOOGS', event);
+  async addToGoogleCalendar(event: Event) {
     const {
       category,
       category_text,
@@ -65,7 +64,7 @@ export class GoogleService {
       },
       (err: any) => {
         if (err) {
-          return console.error('Error Creating Calendar Event', err);
+          return console.log('Calendar event creation unsuccessful', err);
         }
         return console.log('Calendar event successfully created');
       }
