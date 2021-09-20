@@ -5,87 +5,87 @@ import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class EventsQueryDto {
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly agenda?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly audience?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly category?: Category;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly category_text?: CategoryText;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly cost?: number;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly creator_email?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly creator_name?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly custom_blurb?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly description?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly location?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly logo?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly start_date?: Date;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly end_date?: Date;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly start_time?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly end_time?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly panelists?: string[];
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly promoted?: boolean;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly summary?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly title?: string;
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly topics?: Topics[];
 
-  @ApiProperty()
   @IsOptional()
+  @ApiProperty()
   readonly url?: string;
 }
