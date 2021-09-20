@@ -34,6 +34,7 @@ export class CreateEventDto {
 
   @ApiPropertyOptional()
   @IsDateString()
+  @IsOptional()
   readonly in_google_cal?: Date;
 
   @ApiProperty()
