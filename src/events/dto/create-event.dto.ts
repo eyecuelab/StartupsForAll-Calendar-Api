@@ -1,9 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
+import { Unique } from 'typeorm';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
+@Unique('events_constraints', ['start_date', 'end_date', 'url'])
 export class CreateEventDto {
   @ApiProperty()
   @IsNotEmpty()

@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Unique } from 'typeorm';
 import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
+@Unique('events_constraints', ['start_date', 'end_date', 'url'])
 export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;

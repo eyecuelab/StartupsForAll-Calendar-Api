@@ -70,9 +70,15 @@ export class EventsService {
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
 
-  async create(eventData: CreateEventDto): Promise<Event> {
+  async create(eventData: CreateEventDto): Promise<Event | Error> {
     const newEvent = this.eventsRespository.create({ ...eventData });
-    await this.eventsRespository.save(newEvent);
+    try {
+      const saveResult = await this.eventsRespository.save(newEvent);
+      console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+    } catch (err) {
+      console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
+      return new Error(`${err.routine} ${err.message}`);
+    }
     return newEvent;
   }
 

@@ -5,7 +5,9 @@ import { CreateEventDto } from './create-event.dto';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
+import { Unique } from 'typeorm';
 
+@Unique('events_constraints', ['start_date', 'end_date', 'url'])
 export class UpdateEventDto extends PartialType(CreateEventDto) {
   @ApiPropertyOptional()
   @IsNotEmpty()
