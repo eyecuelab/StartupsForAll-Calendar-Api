@@ -1,23 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Unique } from 'typeorm';
 import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
+@Unique('events_constraints', ['start_date', 'end_date', 'url'])
 export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  agenda?: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  audience?: string;
 
   @Column()
   category: Category;
@@ -49,10 +38,11 @@ export class Event {
   custom_blurb?: string;
 
   @Column({
-    type: 'text',
+    type: 'date',
     nullable: true,
+    default: null,
   })
-  description?: string;
+  in_google_cal: Date;
 
   @Column('text')
   location: string;
@@ -63,7 +53,10 @@ export class Event {
   })
   logo?: string;
 
-  @Column('date')
+  @Column({
+    type: 'date',
+    nullable: true,
+  })
   start_date: Date;
 
   @Column({
@@ -71,18 +64,6 @@ export class Event {
     nullable: true,
   })
   end_date: Date;
-
-  @Column('text')
-  start_time: string;
-
-  @Column('text')
-  end_time: string;
-
-  @Column({
-    type: 'simple-array',
-    nullable: true,
-  })
-  panelists?: string[];
 
   @Column({
     type: 'boolean',
