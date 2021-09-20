@@ -10,6 +10,7 @@ export class Event {
   @Column({
     type: 'date',
     nullable: true,
+    default: null,
   })
   addedToGoogleCalendar: Date;
 
