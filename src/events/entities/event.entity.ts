@@ -8,11 +8,10 @@ export class Event {
   id: string;
 
   @Column({
-    type: 'boolean',
-    default: false,
+    type: 'date',
     nullable: true,
   })
-  addedToGoogleCalendar: boolean;
+  addedToGoogleCalendar: Date;
 
   @Column()
   category: Category;

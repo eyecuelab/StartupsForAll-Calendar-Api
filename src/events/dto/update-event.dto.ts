@@ -8,9 +8,8 @@ import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
   @ApiPropertyOptional()
-  @IsNotEmpty()
-  @IsBoolean()
-  readonly addedToGoogleCalendar: boolean;
+  @IsDateString()
+  readonly addedToGoogleCalendar: Date;
 
   @ApiPropertyOptional()
   @IsNotEmpty()
