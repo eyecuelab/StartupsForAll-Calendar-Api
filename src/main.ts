@@ -23,7 +23,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
   const configService = app.get(ConfigService);
-  const port = configService.get('PORT');
+  const port = configService.get('PORT') || process.env.PORT || 1323;
   await app.listen(port);
   console.log(
     `${chalk.yellow.bold('API is running at:')} ${chalk.underline.magentaBright.bold(`${await app.getUrl()}`)}`
