@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEmail, IsEnum, IsInt, IsNotEmpty, IsUrl } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsDateString, IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 import { CreateEventDto } from './create-event.dto';
 import { Category } from '../entities/Category.enum';
@@ -7,80 +7,73 @@ import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
-  @ApiProperty()
-  readonly agenda?: string;
+  @ApiPropertyOptional()
+  @IsNotEmpty()
+  @IsBoolean()
+  readonly addedToGoogleCalendar: boolean;
 
-  @ApiProperty()
-  readonly audience?: string;
-
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   @IsEnum(Category)
   readonly category: Category;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   @IsEnum(CategoryText)
   readonly category_text: CategoryText;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsNotEmpty()
   @IsInt()
-  readonly cost?: number;
+  readonly cost: number;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsNotEmpty()
   @IsEmail()
-  readonly creator_email?: string;
+  readonly creator_email: string;
 
-  @ApiProperty()
-  readonly creator_name?: string;
+  @ApiPropertyOptional()
+  @IsNotEmpty()
+  readonly creator_name: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   readonly custom_blurb?: string;
 
-  @ApiProperty()
-  readonly description?: string;
-
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly location: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   readonly logo?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   @IsDateString()
   readonly start_date: Date;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsNotEmpty()
   @IsDateString()
-  readonly end_date?: Date;
+  readonly end_date: Date;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  readonly start_time: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  readonly end_time: string;
-
-  @ApiProperty()
-  readonly panelists?: string[];
-
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   readonly promoted?: boolean;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsNotEmpty()
   readonly summary: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly title: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly topics: Topics[];
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   readonly url?: string;
 }

@@ -17,11 +17,10 @@ export class EventsService {
     console.log('hit find all service w/query:', query);
     // eslint-disable-next-line prefer-const
     let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
-    if (query.agenda) {
-      qb.andWhere('events.agenda = :agenda', { agenda: query.agenda });
-    }
-    if (query.audience) {
-      qb.andWhere('events.audience = :audience', { audience: query.audience });
+    if (query.addedToGoogleCalendar) {
+      qb.andWhere('events.addedToGoogleCalendar = :addedToGoogleCalendar', {
+        addedToGoogleCalendar: query.addedToGoogleCalendar,
+      });
     }
     if (query.category) {
       qb.andWhere('events.category = :category', { category: query.category });
@@ -41,9 +40,6 @@ export class EventsService {
     if (query.custom_blurb) {
       qb.andWhere('events.custom_blurb = :custom_blurb', { custom_blurb: query.custom_blurb });
     }
-    if (query.description) {
-      qb.andWhere('events.description = :description', { description: query.description });
-    }
     if (query.location) {
       qb.andWhere('events.location = :location', { location: query.location });
     }
@@ -55,15 +51,6 @@ export class EventsService {
     }
     if (query.end_date) {
       qb.andWhere('events.end_date = :end_date', { end_date: query.end_date });
-    }
-    if (query.start_time) {
-      qb.andWhere('events.start_time = :start_time', { start_time: query.start_time });
-    }
-    if (query.end_time) {
-      qb.andWhere('events.end_time = :end_time', { end_time: query.end_time });
-    }
-    if (query.panelists) {
-      qb.andWhere('events.panelists = :panelists', { panelists: query.panelists });
     }
     if (query.promoted) {
       qb.andWhere('events.promoted = :promoted', { promoted: query.promoted });

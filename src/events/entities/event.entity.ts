@@ -8,16 +8,11 @@ export class Event {
   id: string;
 
   @Column({
-    type: 'text',
+    type: 'boolean',
+    default: false,
     nullable: true,
   })
-  agenda?: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  audience?: string;
+  addedToGoogleCalendar: boolean;
 
   @Column()
   category: Category;
@@ -48,12 +43,6 @@ export class Event {
   })
   custom_blurb?: string;
 
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  description?: string;
-
   @Column('text')
   location: string;
 
@@ -63,7 +52,10 @@ export class Event {
   })
   logo?: string;
 
-  @Column('date')
+  @Column({
+    type: 'date',
+    nullable: true,
+  })
   start_date: Date;
 
   @Column({
@@ -71,18 +63,6 @@ export class Event {
     nullable: true,
   })
   end_date: Date;
-
-  @Column('text')
-  start_time: string;
-
-  @Column('text')
-  end_time: string;
-
-  @Column({
-    type: 'simple-array',
-    nullable: true,
-  })
-  panelists?: string[];
 
   @Column({
     type: 'boolean',

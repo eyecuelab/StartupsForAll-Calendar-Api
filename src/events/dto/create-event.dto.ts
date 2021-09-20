@@ -1,15 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsUrl, IsEnum } from 'class-validator';
+import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsEnum, IsOptional, IsBoolean } from 'class-validator';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class CreateEventDto {
   @ApiProperty()
-  readonly agenda?: string;
-
-  @ApiProperty()
-  readonly audience?: string;
+  @IsNotEmpty()
+  @IsBoolean()
+  readonly addedToGoogleCalendar: boolean;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -22,27 +21,28 @@ export class CreateEventDto {
   readonly category_text: CategoryText;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsInt()
-  readonly cost?: number;
+  readonly cost: number;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsEmail()
-  readonly creator_email?: string;
+  readonly creator_email: string;
 
   @ApiProperty()
-  readonly creator_name?: string;
+  @IsNotEmpty()
+  readonly creator_name: string;
 
   @ApiProperty()
   readonly custom_blurb?: string;
-
-  @ApiProperty()
-  readonly description?: string;
 
   @ApiProperty()
   @IsNotEmpty()
   readonly location: string;
 
   @ApiProperty()
+  @IsOptional()
   readonly logo?: string;
 
   @ApiProperty()
@@ -51,24 +51,16 @@ export class CreateEventDto {
   readonly start_date: Date;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsDateString()
-  readonly end_date?: Date;
+  readonly end_date: Date;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly start_time: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  readonly end_time: string;
-
-  @ApiProperty()
-  readonly panelists?: string[];
-
-  @ApiProperty()
+  @IsOptional()
   readonly promoted?: boolean;
 
   @ApiProperty()
+  @IsNotEmpty()
   readonly summary: string;
 
   @ApiProperty()
@@ -80,5 +72,6 @@ export class CreateEventDto {
   readonly topics: Topics[];
 
   @ApiProperty()
+  @IsOptional()
   readonly url?: string;
 }
