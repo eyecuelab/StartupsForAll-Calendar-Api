@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -15,93 +15,70 @@ export class EventsService {
 
   async findAll(query: EventsQueryDto): Promise<Event[]> {
     console.log('hit find all service w/query:', query);
-    const {
-      agenda,
-      audience,
-      category,
-      category_text,
-      cost,
-      creator_email,
-      creator_name,
-      custom_blurb,
-      description,
-      location,
-      logo,
-      start_date,
-      end_date,
-      start_time,
-      end_time,
-      panelists,
-      promoted,
-      summary,
-      title,
-      topics,
-      url,
-    } = query;
     // eslint-disable-next-line prefer-const
     let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
-    if (agenda) {
-      qb.andWhere('events.agenda = :agenda', { agenda: agenda });
+    if (query.agenda) {
+      qb.andWhere('events.agenda = :agenda', { agenda: query.agenda });
     }
-    if (audience) {
-      qb.andWhere('events.audience = :audience', { audience: audience });
+    if (query.audience) {
+      qb.andWhere('events.audience = :audience', { audience: query.audience });
     }
-    if (category) {
-      qb.andWhere('events.category = :category', { category: category });
+    if (query.category) {
+      qb.andWhere('events.category = :category', { category: query.category });
     }
-    if (category_text) {
-      qb.andWhere('events.category_text = :category_text', { category_text: category_text });
+    if (query.category_text) {
+      qb.andWhere('events.category_text = :category_text', { category_text: query.category_text });
     }
-    if (cost) {
-      qb.andWhere('events.cost = :cost', { cost: cost });
+    if (query.cost) {
+      qb.andWhere('events.cost = :cost', { cost: query.cost });
     }
-    if (creator_email) {
-      qb.andWhere('events.creator_email = :creator_email', { creator_email: creator_email });
+    if (query.creator_email) {
+      qb.andWhere('events.creator_email = :creator_email', { creator_email: query.creator_email });
     }
-    if (creator_name) {
-      qb.andWhere('events.creator_name = :creator_name', { creator_name: creator_name });
+    if (query.creator_name) {
+      qb.andWhere('events.creator_name = :creator_name', { creator_name: query.creator_name });
     }
-    if (custom_blurb) {
-      qb.andWhere('events.custom_blurb = :custom_blurb', { custom_blurb: custom_blurb });
+    if (query.custom_blurb) {
+      qb.andWhere('events.custom_blurb = :custom_blurb', { custom_blurb: query.custom_blurb });
     }
-    if (description) {
-      qb.andWhere('events.description = :description', { description: description });
+    if (query.description) {
+      qb.andWhere('events.description = :description', { description: query.description });
     }
-    if (location) {
-      qb.andWhere('events.location = :location', { location: location });
+    if (query.location) {
+      qb.andWhere('events.location = :location', { location: query.location });
     }
-    if (logo) {
-      qb.andWhere('events.logo = :logo', { logo: logo });
+    if (query.logo) {
+      qb.andWhere('events.logo = :logo', { logo: query.logo });
     }
-    if (start_date) {
-      qb.andWhere('events.start_date = :start_date', { start_date: start_date });
+    if (query.start_date) {
+      qb.andWhere('events.start_date = :start_date', { start_date: query.start_date });
     }
-    if (end_date) {
-      qb.andWhere('events.end_date = :end_date', { end_date: end_date });
+    if (query.end_date) {
+      qb.andWhere('events.end_date = :end_date', { end_date: query.end_date });
     }
-    if (start_time) {
-      qb.andWhere('events.start_time = :start_time', { start_time: start_time });
+    if (query.start_time) {
+      qb.andWhere('events.start_time = :start_time', { start_time: query.start_time });
     }
-    if (end_time) {
-      qb.andWhere('events.end_time = :end_time', { end_time: end_time });
+    if (query.end_time) {
+      qb.andWhere('events.end_time = :end_time', { end_time: query.end_time });
     }
-    if (panelists) {
-      qb.andWhere('events.panelists = :panelists', { panelists: panelists });
+    if (query.panelists) {
+      qb.andWhere('events.panelists = :panelists', { panelists: query.panelists });
     }
-    if (promoted) {
-      qb.andWhere('events.promoted = :promoted', { promoted: promoted });
+    if (query.promoted) {
+      qb.andWhere('events.promoted = :promoted', { promoted: query.promoted });
     }
-    if (summary) {
-      qb.andWhere('events.summary = :summary', { summary: summary });
+    if (query.summary) {
+      qb.andWhere('events.summary = :summary', { summary: query.summary });
     }
-    if (title) {
-      qb.andWhere('events.title = :title', { title: title });
+    if (query.title) {
+      qb.andWhere('events.title = :title', { title: query.title });
     }
-    if (topics) {
-      qb.andWhere('events.topics = :topics', { topics: topics });
+    if (query.topics) {
+      qb.andWhere('events.topics = :topics', { topics: query.topics });
     }
-    if (url) {
-      qb.andWhere('events.url = :url', { url: url });
+    if (query.url) {
+      qb.andWhere('events.url = :url', { url: query.url });
     }
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
