@@ -1,84 +1,91 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsEnum } from 'class-validator';
+import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class EventsQueryDto {
+  @IsOptional()
   @ApiProperty()
   readonly agenda?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly audience?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(Category)
   readonly category?: Category;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(CategoryText)
   readonly category_text?: CategoryText;
 
+  @IsOptional()
   @ApiProperty()
-  @IsInt()
   readonly cost?: number;
 
+  @IsOptional()
   @ApiProperty()
-  @IsEmail()
   readonly creator_email?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly creator_name?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly custom_blurb?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly description?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
   readonly location?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly logo?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
-  @IsDateString()
   readonly start_date?: Date;
 
+  @IsOptional()
   @ApiProperty()
-  @IsDateString()
   readonly end_date?: Date;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
   readonly start_time?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
   readonly end_time?: string;
 
+  @IsOptional()
   @ApiProperty()
   readonly panelists?: string[];
 
+  @IsOptional()
   @ApiProperty()
   readonly promoted?: boolean;
 
+  @IsOptional()
   @ApiProperty()
   readonly summary?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
   readonly title?: string;
 
+  @IsOptional()
   @ApiProperty()
-  @IsNotEmpty()
   readonly topics?: Topics[];
 
+  @IsOptional()
   @ApiProperty()
   readonly url?: string;
 }
