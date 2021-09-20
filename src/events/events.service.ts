@@ -63,9 +63,11 @@ export class EventsService {
 
   async create(eventData: CreateEventDto): Promise<Event> {
     const newEvent = this.eventsRespository.create({ ...eventData });
-    await this.eventsRespository.save(newEvent);
-    addToGoogleCalendar(newEvent);
-    return newEvent;
+    const res = await addToGoogleCalendar(newEvent);
+    if (res.status === 200) {
+      newEvent.audience = res.data.created;
+    }
+    return await this.eventsRespository.save(newEvent);
   }
 
   async findOne(id: string): Promise<Event | undefined> {
