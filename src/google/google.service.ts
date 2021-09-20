@@ -36,15 +36,15 @@ export async function addToGoogleCalendar(event: Event) {
     summary: googleEventEmojis + '[' + creator_name + ']' + title,
     location: location,
     description: `${googleCategoryText[category_text]}
-      ${custom_blurb}
+${custom_blurb}
         
-      ${url}
+${url}
 
-      About this event: 
-      ${summary}
+About this event: 
+${summary}
 
-      ${url}
-      `,
+${url}
+`,
     colorId: googleCategoryColors[category],
     start: {
       dateTime: start_date,
