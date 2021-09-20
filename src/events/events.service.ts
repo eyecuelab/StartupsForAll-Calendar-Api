@@ -75,7 +75,8 @@ export class EventsService {
     const newEvent = this.eventsRespository.create({ ...eventData });
     const res = await addToGoogleCalendar(newEvent);
     if (res.status === 200) {
-      newEvent.audience = res.data.created;
+      const createdInGoogle = new Date(res.data.created);
+      newEvent.in_google_cal = createdInGoogle;
     }
     // return await this.eventsRespository.save(newEvent);
     try {
