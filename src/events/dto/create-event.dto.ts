@@ -5,10 +5,6 @@ import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class CreateEventDto {
-  @ApiPropertyOptional()
-  @IsDateString()
-  readonly addedToGoogleCalendar?: Date;
-
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(Category)
@@ -35,6 +31,10 @@ export class CreateEventDto {
 
   @ApiProperty()
   readonly custom_blurb?: string;
+
+  @ApiPropertyOptional()
+  @IsDateString()
+  readonly in_google_cal?: Date;
 
   @ApiProperty()
   @IsNotEmpty()

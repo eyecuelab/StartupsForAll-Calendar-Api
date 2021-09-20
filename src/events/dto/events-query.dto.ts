@@ -6,71 +6,66 @@ import { Topics } from '../entities/Topics.enum';
 
 export class EventsQueryDto {
   @ApiPropertyOptional()
-  @IsDateString()
-  readonly addedToGoogleCalendar: Date;
-
-  @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsEnum(Category)
+  @IsOptional()
   readonly category: Category;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsEnum(CategoryText)
+  @IsOptional()
   readonly category_text: CategoryText;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsInt()
+  @IsOptional()
   readonly cost: number;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsEmail()
+  @IsOptional()
   readonly creator_email: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   readonly creator_name: string;
 
   @ApiPropertyOptional()
-  readonly custom_blurb?: string;
+  readonly custom_blurb: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
+  @IsDateString()
+  @IsOptional()
+  readonly in_google_cal: Date;
+
+  @ApiPropertyOptional()
   readonly location: string;
 
   @ApiPropertyOptional()
-  @IsOptional()
-  readonly logo?: string;
+  readonly logo: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsDateString()
+  @IsOptional()
   readonly start_date: Date;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsDateString()
+  @IsOptional()
   readonly end_date: Date;
 
   @ApiPropertyOptional()
   @IsOptional()
-  readonly promoted?: boolean;
+  readonly promoted: boolean;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   readonly summary: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   readonly title: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   readonly topics: Topics[];
 
   @ApiPropertyOptional()
   @IsOptional()
-  readonly url?: string;
+  readonly url: string;
 }

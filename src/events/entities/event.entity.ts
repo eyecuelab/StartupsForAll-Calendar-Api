@@ -7,13 +7,6 @@ export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    type: 'date',
-    nullable: true,
-    default: null,
-  })
-  addedToGoogleCalendar: Date;
-
   @Column()
   category: Category;
 
@@ -42,6 +35,13 @@ export class Event {
     type: 'text',
   })
   custom_blurb?: string;
+
+  @Column({
+    type: 'date',
+    nullable: true,
+    default: null,
+  })
+  in_google_cal: Date;
 
   @Column('text')
   location: string;

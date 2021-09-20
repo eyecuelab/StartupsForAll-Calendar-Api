@@ -17,9 +17,9 @@ export class EventsService {
     console.log('hit find all service w/query:', query);
     // eslint-disable-next-line prefer-const
     let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
-    if (query.addedToGoogleCalendar) {
-      qb.andWhere('events.addedToGoogleCalendar = :addedToGoogleCalendar', {
-        addedToGoogleCalendar: query.addedToGoogleCalendar,
+    if (query.in_google_cal) {
+      qb.andWhere('events.in_google_cal = :in_google_cal', {
+        in_google_cal: query.in_google_cal,
       });
     }
     if (query.category) {

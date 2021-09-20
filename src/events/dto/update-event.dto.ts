@@ -8,10 +8,6 @@ import { Topics } from '../entities/Topics.enum';
 
 export class UpdateEventDto extends PartialType(CreateEventDto) {
   @ApiPropertyOptional()
-  @IsDateString()
-  readonly addedToGoogleCalendar: Date;
-
-  @ApiPropertyOptional()
   @IsNotEmpty()
   @IsEnum(Category)
   readonly category: Category;
@@ -37,6 +33,10 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
 
   @ApiPropertyOptional()
   readonly custom_blurb?: string;
+
+  @ApiPropertyOptional()
+  @IsDateString()
+  readonly in_google_cal: Date;
 
   @ApiPropertyOptional()
   @IsNotEmpty()
