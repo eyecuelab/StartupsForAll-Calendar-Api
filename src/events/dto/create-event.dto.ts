@@ -1,13 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsEmail, IsInt, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class CreateEventDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsDateString()
-  readonly addedToGoogleCalendar: Date;
+  readonly addedToGoogleCalendar?: Date;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsDateString, IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 import { CreateEventDto } from './create-event.dto';
 import { Category } from '../entities/Category.enum';
