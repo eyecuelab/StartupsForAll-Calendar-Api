@@ -73,14 +73,16 @@ export class EventsService {
 
   async create(eventData: CreateEventDto): Promise<Event | Error> {
     const newEvent = this.eventsRespository.create({ ...eventData });
-    const res = await addToGoogleCalendar(newEvent);
-    if (res.status === 200) {
-      const googleCreated = new Date(res.data.created);
-      newEvent.in_google_cal = googleCreated;
-    }
     try {
       const saveResult = await this.eventsRespository.save(newEvent);
       console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+      const res = await addToGoogleCalendar(newEvent);
+      if (res.status === 200) {
+        const googleCreated = new Date(res.data.created);
+        newEvent.in_google_cal = googleCreated;
+        const { id } = newEvent;
+        await this.eventsRespository.update(id, { in_google_cal: googleCreated });
+      }
     } catch (err) {
       console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
       return new Error(`${err.routine} ${err.message}`);

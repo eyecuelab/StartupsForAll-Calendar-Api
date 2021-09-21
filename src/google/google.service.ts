@@ -22,6 +22,7 @@ export async function addToGoogleCalendar(event: Event) {
     creator_name,
     custom_blurb,
     end_date,
+    id,
     location,
     start_date,
     summary,
@@ -30,9 +31,11 @@ export async function addToGoogleCalendar(event: Event) {
     url,
   } = event;
 
+  const googleID = id.replace(/-/g, '');
   const googleEventEmojis = topics.map((topic) => topicsEmojis[topic]).join(' ');
 
   const googleEvent: Record<any, any> = {
+    id: googleID,
     summary: googleEventEmojis + '[' + creator_name + ']' + title,
     location: location,
     description: `${googleCategoryText[category_text]}
