@@ -54,13 +54,13 @@ export class Event {
   logo?: string;
 
   @Column({
-    type: 'date',
+    type: 'timestamptz',
     nullable: true,
   })
   start_date: Date;
 
   @Column({
-    type: 'date',
+    type: 'timestamptz',
     nullable: true,
   })
   end_date: Date;
