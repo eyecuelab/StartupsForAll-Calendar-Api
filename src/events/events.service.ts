@@ -4,14 +4,16 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { addToGoogleCalendar } from 'src/google/google.service';
+// import { addToGoogleCalendar } from 'src/google/google.service';
 import { EventsQueryDto } from './dto/events-query.dto';
+import { AdminGoogleService } from 'src/google/google.service';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event)
-    private eventsRespository: Repository<Event>
+    private eventsRespository: Repository<Event>,
+    private adminGoogleService: AdminGoogleService
   ) {}
 
   async findAll(query: EventsQueryDto): Promise<Event[]> {
@@ -75,14 +77,13 @@ export class EventsService {
     const newEvent = this.eventsRespository.create({ ...eventData });
     try {
       const saveResult = await this.eventsRespository.save(newEvent);
-      console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
-      const res = await addToGoogleCalendar(newEvent);
-      if (res.status === 200) {
-        const googleCreated = new Date(res.data.created);
-        newEvent.in_google_cal = googleCreated;
-        const { id } = newEvent;
-        await this.eventsRespository.update(id, { in_google_cal: googleCreated });
-      }
+      // console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+      // const res = await addToGoogleCalendar(newEvent);
+      // if (res.status === 200) {
+      //   const googleCreated = new Date(res.data.created);
+      //   newEvent.in_google_cal = googleCreated;
+      //   const { id } = newEvent;
+      //   await this.eventsRespository.update(id, { in_google_cal: googleCreated });
     } catch (err) {
       console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
       return new Error(`${err.routine} ${err.message}`);

@@ -19,16 +19,20 @@ import { EventbriteService } from 'src/eventbrite/eventbrite.service';
 import { Observable } from 'rxjs';
 import FormattedEvent from 'src/eventbrite/formattedEvent';
 import { EventsQueryDto } from './dto/events-query.dto';
+// import { AdminGoogleService } from 'src/google/google.service';
 @Controller('events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService, private readonly eventBriteService: EventbriteService) {}
+  constructor(
+    private readonly eventsService: EventsService,
+    private readonly eventBriteService: EventbriteService /*private readonly adminGoogleService: AdminGoogleService*/
+  ) {}
 
   @Post()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async create(@Body() createEventDto: CreateEventDto) {
     const saveResult = await this.eventsService.create(createEventDto);
-    console.log('save result:', saveResult);
+    // console.log('save result:', saveResult);
     if (saveResult instanceof Error) {
       throw new BadRequestException();
     }

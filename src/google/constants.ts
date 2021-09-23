@@ -18,3 +18,5 @@ export const googleCategoryText = {
   Community: 'This is a Startups for All / SfA Community Event.',
   Founder: 'This is a Startups for All / SfA Community Event.',
 };
+
+SCOPES: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events';
