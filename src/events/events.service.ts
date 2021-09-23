@@ -23,7 +23,21 @@ export class EventsService {
       });
     }
     if (query.category) {
-      qb.andWhere('events.category = :category', { category: query.category });
+      // const categoryArray = query.category.split(',');
+      console.log(
+        'EVENTS SERVICE CREATING QUERY, got category and as type (array):',
+        query.category,
+        Array.isArray(query.category)
+      );
+      // qb.andWhere('events.category && :category', { category: categoryArray });
+      // qb.andWhere('events.category @> ARRAY[:...category]', { category: categoryArray });
+      // qb.andWhere('events.category <@ :category', { category: categoryArray });
+      // qb.andWhere('events.category <@ ARRAY[...:category]', { category: categoryArray });
+      // qb.andWhere('events.category <@ ARRAY[categoryArray]', { category: categoryArray });
+      // qb.andWhere('events.category <@ :categoryArray', { category: categoryArray });
+      // qb.andWhere(`events.category <@ ARRAY[${[...categoryArray]}]`);
+      // .where("post.authorId IN (:authors)", { authors: [3, 7, 9] })
+      qb.andWhere('events.category IN (:category)', { category: query.category });
     }
     if (query.category_text) {
       qb.andWhere('events.category_text = :category_text', { category_text: query.category_text });
