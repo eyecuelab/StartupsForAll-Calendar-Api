@@ -76,6 +76,11 @@ export class EventsService {
     try {
       const saveResult = await this.eventsRespository.save(newEvent);
       console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+      const res = await addToGoogleCalendar(newEvent);
+      if (res.status === 200) {
+        const googleDate = new Date(res.data.created);
+        newEvent.in_google_cal = googleDate;
+      }
     } catch (err) {
       console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
       return new Error(`${err.routine} ${err.message}`);
