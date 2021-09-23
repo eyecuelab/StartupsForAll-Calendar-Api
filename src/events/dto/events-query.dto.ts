@@ -8,8 +8,8 @@ import { Topics } from '../entities/Topics.enum';
 export class EventsQueryDto {
   @ApiPropertyOptional()
   @IsOptional()
-  // @IsArray()
-  @IsEnum(Category)
+  @IsArray()
+  // @IsEnum(Category)
   @IsString({ each: true })
   @Type(() => String)
   @Transform(({ value }) => value.split(','))
