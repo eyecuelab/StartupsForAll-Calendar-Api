@@ -29,13 +29,13 @@ export async function addToGoogleCalendar(event: Event) {
     topics,
     url,
   } = event;
-
+  console.log('CATEGORY', category, 'CAT TEXT', category_text);
   const googleEventEmojis = topics.map((topic) => topicsEmojis[topic]).join(' ');
 
   const googleEvent: Record<any, any> = {
     summary: googleEventEmojis + '[' + creator_name + ']' + title,
     location: location,
-    description: `${googleCategoryText[category_text]}
+    description: `${googleCategoryText[category]}
 ${custom_blurb}
         
 ${url}
