@@ -43,7 +43,6 @@ export class EventsController {
 
   @Get()
   findAll(@Query(new ValidationPipe({ transform: true })) query?: EventsQueryDto) {
-    console.log('hit findAll in events controller w/query:', query);
     return this.eventsService.findAll(query);
   }
 

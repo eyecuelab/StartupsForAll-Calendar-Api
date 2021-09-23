@@ -9,7 +9,6 @@ export class EventsQueryDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsArray()
-  // @IsEnum(Category)
   @IsString({ each: true })
   @Type(() => String)
   @Transform(({ value }) => value.split(','))
@@ -68,7 +67,12 @@ export class EventsQueryDto {
   readonly title: string;
 
   @ApiPropertyOptional()
-  readonly topics: Topics[];
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Type(() => String)
+  @Transform(({ value }) => value.split(','))
+  readonly topics: Topics;
 
   @ApiPropertyOptional()
   @IsOptional()
