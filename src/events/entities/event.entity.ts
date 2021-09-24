@@ -77,7 +77,12 @@ export class Event {
   @Column('text')
   title: string;
 
-  @Column('simple-array')
+  @Column({
+    type: 'enum',
+    enum: Topics,
+    array: true,
+    nullable: true,
+  })
   topics: Topics[];
 
   @Column({
