@@ -29,7 +29,6 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   async create(@Body() createEventDto: CreateEventDto) {
     const saveResult = await this.eventsService.create(createEventDto);
-    console.log('save result:', saveResult);
     if (saveResult instanceof Error) {
       throw new BadRequestException();
     }
@@ -43,6 +42,7 @@ export class EventsController {
 
   @Get()
   findAll(@Query(new ValidationPipe({ transform: true })) query?: EventsQueryDto) {
+    console.log('events controller query:', query);
     return this.eventsService.findAll(query);
   }
 

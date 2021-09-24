@@ -17,14 +17,15 @@ export class EventsService {
   async findAll(query: EventsQueryDto): Promise<Event[]> {
     console.log('hit find all service w/query:', query);
     // eslint-disable-next-line prefer-const
-    let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
+    let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events');
     if (query.in_google_cal) {
       qb.orWhere('events.in_google_cal = :in_google_cal', {
         in_google_cal: query.in_google_cal,
       });
     }
+
     if (query.category && query.category.length > 0) {
-      // const categoryArray = query.category.split(',');
+      console.log('get categories:', query.category);
       qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
     }
     if (query.category_text) {
@@ -64,6 +65,8 @@ export class EventsService {
       qb.orWhere('events.title = :title', { title: query.title });
     }
     if (query.topics && query.topics.length > 0) {
+      console.log('getting topics:', query.topics);
+      // qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
       qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
     }
     if (query.url) {
