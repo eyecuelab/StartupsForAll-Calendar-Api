@@ -72,13 +72,13 @@ export class Event {
   promoted?: true | false;
 
   @Column('text')
-  summary?: string;
+  summary: string;
 
   @Column('text')
   title: string;
 
   @Column('simple-array')
-  topics?: Topics[];
+  topics: Topics[];
 
   @Column({
     type: 'text',

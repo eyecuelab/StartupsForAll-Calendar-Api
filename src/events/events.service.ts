@@ -65,9 +65,11 @@ export class EventsService {
       qb.orWhere('events.title = :title', { title: query.title });
     }
     if (query.topics && query.topics.length > 0) {
-      console.log('getting topics:', query.topics);
+      const topArr = query.topics;
+      console.log('getting topics:', query.topics, topArr);
       // qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
-      qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
+      // qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
+      // qb.orWhere('events.topics IN (:...topics)').setParameter('topics', ...topArr);
     }
     if (query.url) {
       qb.orWhere('events.url = :url', { url: query.url });
