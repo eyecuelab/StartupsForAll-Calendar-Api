@@ -22,7 +22,7 @@ export class EventsService {
         in_google_cal: query.in_google_cal,
       });
     }
-    if (query.category) {
+    if (query.category && query.category.length > 0) {
       // const categoryArray = query.category.split(',');
       qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
     }
@@ -62,12 +62,13 @@ export class EventsService {
     if (query.title) {
       qb.orWhere('events.title = :title', { title: query.title });
     }
-    if (query.topics) {
+    if (query.topics && query.topics.length > 0) {
       qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
     }
     if (query.url) {
       qb.orWhere('events.url = :url', { url: query.url });
     }
+    console.log('running query:', qb.expressionMap.wheres);
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
 
