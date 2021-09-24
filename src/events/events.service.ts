@@ -80,12 +80,14 @@ export class EventsService {
       if (res.status === 200) {
         const googleDate = new Date(res.data.created);
         newEvent.in_google_cal = googleDate;
+        const { id } = newEvent;
+        await this.eventsRespository.update(id, { in_google_cal: googleDate });
+        return newEvent;
       }
     } catch (err) {
       console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
       return new Error(`${err.routine} ${err.message}`);
     }
-    return newEvent;
   }
 
   async findOne(id: string): Promise<Event | undefined> {
