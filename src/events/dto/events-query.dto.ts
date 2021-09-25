@@ -1,13 +1,17 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsDateString, IsEmail, IsInt, IsEnum, IsOptional } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { IsDateString, IsEmail, IsInt, IsEnum, IsOptional, IsString, IsArray } from 'class-validator';
 import { Category } from '../entities/Category.enum';
 import { CategoryText } from '../entities/CategoryText.enum';
 import { Topics } from '../entities/Topics.enum';
 
 export class EventsQueryDto {
   @ApiPropertyOptional()
-  @IsEnum(Category)
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Type(() => String)
+  @Transform(({ value }) => value.split(','))
   readonly category: Category;
 
   @ApiPropertyOptional()
@@ -63,7 +67,12 @@ export class EventsQueryDto {
   readonly title: string;
 
   @ApiPropertyOptional()
-  readonly topics: Topics[];
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Type(() => String)
+  @Transform(({ value }) => value.split(','))
+  readonly topics: Topics;
 
   @ApiPropertyOptional()
   @IsOptional()

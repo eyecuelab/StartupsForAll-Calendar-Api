@@ -20,54 +20,55 @@ export class EventsService {
     // eslint-disable-next-line prefer-const
     let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
     if (query.in_google_cal) {
-      qb.andWhere('events.in_google_cal = :in_google_cal', {
+      qb.orWhere('events.in_google_cal = :in_google_cal', {
         in_google_cal: query.in_google_cal,
       });
     }
     if (query.category) {
-      qb.andWhere('events.category = :category', { category: query.category });
+      // const categoryArray = query.category.split(',');
+      qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
     }
     if (query.category_text) {
-      qb.andWhere('events.category_text = :category_text', { category_text: query.category_text });
+      qb.orWhere('events.category_text = :category_text', { category_text: query.category_text });
     }
     if (query.cost) {
-      qb.andWhere('events.cost = :cost', { cost: query.cost });
+      qb.orWhere('events.cost = :cost', { cost: query.cost });
     }
     if (query.creator_email) {
-      qb.andWhere('events.creator_email = :creator_email', { creator_email: query.creator_email });
+      qb.orWhere('events.creator_email = :creator_email', { creator_email: query.creator_email });
     }
     if (query.creator_name) {
-      qb.andWhere('events.creator_name = :creator_name', { creator_name: query.creator_name });
+      qb.orWhere('events.creator_name = :creator_name', { creator_name: query.creator_name });
     }
     if (query.custom_blurb) {
-      qb.andWhere('events.custom_blurb = :custom_blurb', { custom_blurb: query.custom_blurb });
+      qb.orWhere('events.custom_blurb = :custom_blurb', { custom_blurb: query.custom_blurb });
     }
     if (query.location) {
-      qb.andWhere('events.location = :location', { location: query.location });
+      qb.orWhere('events.location = :location', { location: query.location });
     }
     if (query.logo) {
-      qb.andWhere('events.logo = :logo', { logo: query.logo });
+      qb.orWhere('events.logo = :logo', { logo: query.logo });
     }
     if (query.start_date) {
-      qb.andWhere('events.start_date = :start_date', { start_date: query.start_date });
+      qb.orWhere('events.start_date = :start_date', { start_date: query.start_date });
     }
     if (query.end_date) {
-      qb.andWhere('events.end_date = :end_date', { end_date: query.end_date });
+      qb.orWhere('events.end_date = :end_date', { end_date: query.end_date });
     }
     if (query.promoted) {
-      qb.andWhere('events.promoted = :promoted', { promoted: query.promoted });
+      qb.orWhere('events.promoted = :promoted', { promoted: query.promoted });
     }
     if (query.summary) {
-      qb.andWhere('events.summary = :summary', { summary: query.summary });
+      qb.orWhere('events.summary = :summary', { summary: query.summary });
     }
     if (query.title) {
-      qb.andWhere('events.title = :title', { title: query.title });
+      qb.orWhere('events.title = :title', { title: query.title });
     }
     if (query.topics) {
-      qb.andWhere('events.topics = :topics', { topics: query.topics });
+      qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
     }
     if (query.url) {
-      qb.andWhere('events.url = :url', { url: query.url });
+      qb.orWhere('events.url = :url', { url: query.url });
     }
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }

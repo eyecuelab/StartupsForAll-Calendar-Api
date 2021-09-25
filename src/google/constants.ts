@@ -14,9 +14,9 @@ export const googleCategoryColors = {
 };
 
 export const googleCategoryText = {
-  Expert: 'This is an external event independently managed and operated by one of SfA’s guest experts.',
+  Experts: 'This is an external event independently managed and operated by one of SfA’s guest experts.',
   Community: 'This is a Startups for All / SfA Community Event.',
-  Founder: 'This is a Startups for All / SfA Community Event.',
+  Founders: 'This is a Startups for All / SfA Community Event.',
 };
 
 SCOPES: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events';

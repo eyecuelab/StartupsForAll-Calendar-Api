@@ -9,6 +9,7 @@ import {
   UseGuards,
   Query,
   BadRequestException,
+  ValidationPipe,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -45,8 +46,7 @@ export class EventsController {
   }
 
   @Get()
-  findAll(@Query() query?: EventsQueryDto) {
-    console.log('hit findAll in events controller w/query:', query);
+  findAll(@Query(new ValidationPipe({ transform: true })) query?: EventsQueryDto) {
     return this.eventsService.findAll(query);
   }
 
