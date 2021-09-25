@@ -28,4 +28,7 @@ export class User {
 
   @CreateDateColumn()
   updated_at?: Date;
+
+  @Column()
+  google_refresh_token?: string;
 }

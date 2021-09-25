@@ -5,10 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsController } from './events.controller';
 import { UsersModule } from '../users/users.module';
 import { EventbriteModule } from '../eventbrite/eventbrite.module';
-import { GoogleModule } from '../google/google.module';
+import { AdminGoogleModule } from '../google/google.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event]), UsersModule, EventbriteModule, GoogleModule],
+  imports: [TypeOrmModule.forFeature([Event]), UsersModule, EventbriteModule, AdminGoogleModule],
   controllers: [EventsController],
   providers: [EventsService],
   exports: [TypeOrmModule, EventsService],
