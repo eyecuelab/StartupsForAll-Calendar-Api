@@ -4,10 +4,10 @@ export class AddGoogleRefreshTokenPropertyToUser1632606335683 implements Migrati
   name: 'AddGoogleRefreshTokenPropertyToUser1632606335683';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "users" ADD COLUMN "google_refresh_token" text`);
+    await queryRunner.query(`ALTER TABLE "users" ADD COLUMN "google_refresh_token" character varying`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "users" DROP COLUMN "google_refresh_token" text`);
+    await queryRunner.query(`ALTER TABLE "users" DROP COLUMN "google_refresh_token" character varying`);
   }
 }

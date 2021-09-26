@@ -6,6 +6,6 @@ import { UsersModule } from 'src/users/users.module';
 @Module({
   imports: [UsersModule],
   exports: [AdminGoogleService],
-  providers: [UsersService, AdminGoogleService],
+  providers: [UsersService, AdminGoogleService, UsersModule],
 })
 export class AdminGoogleModule {}
