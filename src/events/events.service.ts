@@ -76,8 +76,8 @@ export class EventsService {
   async create(eventData: CreateEventDto): Promise<Event | Error> {
     const newEvent = this.eventsRespository.create({ ...eventData });
     try {
-      // const saveResult = await this.eventsRespository.save(newEvent)
-      // console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+      const saveResult = await this.eventsRespository.save(newEvent);
+      console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
       const res = await this.adminGoogleService.addEventToGoogleCalendar(newEvent);
       console.log('ADD TO GOOGLE RESPONSE', res.data);
       if (res.status === 200) {

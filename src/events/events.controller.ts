@@ -20,12 +20,13 @@ import { EventbriteService } from 'src/eventbrite/eventbrite.service';
 import { Observable } from 'rxjs';
 import FormattedEvent from 'src/eventbrite/formattedEvent';
 import { EventsQueryDto } from './dto/events-query.dto';
-// import { AdminGoogleService } from 'src/google/google.service';
+import { AdminGoogleService } from 'src/google/google.service';
 @Controller('events')
 export class EventsController {
   constructor(
     private readonly eventsService: EventsService,
-    private readonly eventBriteService: EventbriteService /*private readonly adminGoogleService: AdminGoogleService*/
+    private readonly eventBriteService: EventbriteService,
+    private readonly adminGoogleService: AdminGoogleService
   ) {}
 
   @Post()
@@ -38,6 +39,16 @@ export class EventsController {
       throw new BadRequestException();
     }
     return saveResult;
+  }
+
+  @Get('/google/google_consent')
+  returnConsentUrl() {
+    return this.adminGoogleService.authenticateGoogle();
+  }
+
+  @Get('/google/oauth2callback')
+  collectRefreshTokens(@Query('code') code?: string) {
+    return this.adminGoogleService.collectRefreshTokens(code);
   }
 
   @Get(':uuid')
