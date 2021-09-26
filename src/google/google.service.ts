@@ -6,8 +6,6 @@ import { Event } from 'src/events/entities/event.entity';
 import { UsersService } from 'src/users/users.service';
 import { topicsEmojis, googleCategoryColors, googleCategoryText } from './constants';
 import { google } from 'googleapis';
-import { CreateUserDto } from 'src/users/dto/createUser.dto';
-import { admin } from 'googleapis/build/src/apis/admin';
 
 const { OAuth2 } = google.auth;
 
@@ -21,69 +19,74 @@ const oAuth2Client = new OAuth2(
 export class AdminGoogleService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>, private usersService: UsersService) {}
 
-  async addEventToGoogleCalendar(event: Event): Promise<any> {
+  async findAdminGoogle() {
     const adminGoogle = await this.usersRepository.findOne({
       where: {
         username: 'adminGoogle',
       },
     });
-    adminGoogle.google_refresh_token = process.env.GOOGLE_AUTH_REFRESH_TOKEN;
+    return adminGoogle;
+  }
+
+  async addEventToGoogleCalendar(event: Event): Promise<any> {
+    const adminGoogle = await this.findAdminGoogle();
     console.log('ADMIN GOOGLE', adminGoogle);
 
-    // try {
-    //   oAuth2Client.setCredentials({
-    //     refresh_token: user.google_refresh_token,
-    //   });
-    // } catch {
-    //   console.log('ERROR IN COLLECTING TOKEN FROM DATABASE');
-    // }
+    try {
+      oAuth2Client.setCredentials({
+        refresh_token: adminGoogle.google_refresh_token,
+      });
+      console.log('OAUTH2CLIENT', oAuth2Client);
+    } catch {
+      console.log('ERROR IN COLLECTING TOKEN FROM DATABASE');
+    }
 
-    //     const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
 
-    //     const {
-    //       category,
-    //       category_text,
-    //       creator_name,
-    //       custom_blurb,
-    //       end_date,
-    //       location,
-    //       start_date,
-    //       summary,
-    //       title,
-    //       topics,
-    //       url,
-    //     } = event;
+    const {
+      category,
+      category_text,
+      creator_name,
+      custom_blurb,
+      end_date,
+      location,
+      start_date,
+      summary,
+      title,
+      topics,
+      url,
+    } = event;
 
-    //     const googleEventEmojis = topics.map((topic) => topicsEmojis[topic]).join(' ');
+    const googleEventEmojis = topics.map((topic) => topicsEmojis[topic]).join(' ');
 
-    //     const googleEvent: Record<any, any> = {
-    //       summary: googleEventEmojis + '[' + creator_name + ']' + title,
-    //       location: location,
-    //       description: `${googleCategoryText[category]}
+    const googleEvent: Record<any, any> = {
+      summary: googleEventEmojis + '[' + creator_name + ']' + title,
+      location: location,
+      description: `${googleCategoryText[category]}
 
-    // Info from ${creator_name}:
-    // ${custom_blurb}
+Info from ${creator_name}:
+${custom_blurb}
 
-    // ${url}
+${url}
 
-    // About this event:
-    // ${summary}
+About this event:
+${summary}
 
-    // ${url}
-    // `,
-    //       colorId: googleCategoryColors[category],
-    //       start: {
-    //         dateTime: start_date,
-    //       },
-    //       end: {
-    //         dateTime: end_date,
-    //       },
-    //     };
+${url}
+`,
+      colorId: googleCategoryColors[category],
+      start: {
+        dateTime: start_date,
+      },
+      end: {
+        dateTime: end_date,
+      },
+    };
 
-    //     return calendar.events.insert({
-    //       calendarId: 'douglasfunnae@gmail.com',
-    //       requestBody: googleEvent,
-    //     });
+    return calendar.events.insert({
+      calendarId: 'douglasfunnae@gmail.com',
+      requestBody: googleEvent,
+    });
   }
 
   // async authenticateGoogle() {
