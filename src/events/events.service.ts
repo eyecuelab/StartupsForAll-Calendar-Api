@@ -65,11 +65,9 @@ export class EventsService {
       qb.orWhere('events.title = :title', { title: query.title });
     }
     if (query.topics && query.topics.length > 0) {
-      const topArr = query.topics;
-      console.log('getting topics:', query.topics, topArr);
-      // qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
-      // qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
-      // qb.orWhere('events.topics IN (:...topics)').setParameter('topics', ...topArr);
+      // && means they have any overlap between array event.topics and  array query.topics
+      // SELECT title, topics FROM event WHERE topics && '{🧩 Strategy,🌎 Social Impact}';
+      qb.orWhere('events.topics && :topics', { topics: query.topics });
     }
     if (query.url) {
       qb.orWhere('events.url = :url', { url: query.url });
