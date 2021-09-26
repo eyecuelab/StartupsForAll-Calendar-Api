@@ -40,13 +40,12 @@ export class AdminGoogleService {
     const { tokens } = await oAuth2Client.getToken(code);
     const adminGoogle = await this.findAdminGoogle();
     const { id } = adminGoogle;
+    await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
     //redirect to localhost:3000
-    const updateTokens = await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
   }
 
   async addEventToGoogleCalendar(event: Event): Promise<any> {
     const adminGoogle = await this.findAdminGoogle();
-    // adminGoogle.google_refresh_token = process.env.GOOGLE_AUTH_REFRESH_TOKEN
     console.log('ADMIN GOOGLE', adminGoogle);
 
     try {
