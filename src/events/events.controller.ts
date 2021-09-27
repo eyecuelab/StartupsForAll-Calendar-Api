@@ -45,9 +45,10 @@ export class EventsController {
     return this.adminGoogleService.authenticateGoogle();
   }
 
-  @Get('/google/oauth2callback')
-  collectRefreshTokens(@Query('code') code?: string) {
-    return this.adminGoogleService.collectRefreshTokens(code);
+  @Post('/google/oauth2callback')
+  async collectRefreshTokens(@Body('code') code?: string) {
+    console.log(code);
+    return await this.adminGoogleService.authorizeUser(code);
   }
 
   @Get(':uuid')

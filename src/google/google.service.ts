@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Event } from 'src/events/entities/event.entity';
 import { UsersService } from 'src/users/users.service';
@@ -22,7 +22,7 @@ export class AdminGoogleService {
   async findAdminGoogle(): Promise<User> {
     const adminGoogle: User = await this.usersRepository.findOne({
       where: {
-        username: 'adminGoogle',
+        username: 'admin',
       },
     });
     return adminGoogle;
@@ -36,18 +36,16 @@ export class AdminGoogleService {
     return authorizeURL;
   }
 
-  async collectRefreshTokens(code: string): Promise<void> {
+  async authorizeUser(code: string): Promise<UpdateResult> {
     const { tokens } = await oAuth2Client.getToken(code);
     const adminGoogle = await this.findAdminGoogle();
     const { id } = adminGoogle;
-    await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
-    //redirect to localhost:3000
+    return await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
   }
 
   async addEventToGoogleCalendar(event: Event): Promise<any> {
     const adminGoogle = await this.findAdminGoogle();
     console.log('ADMIN GOOGLE', adminGoogle);
-
     try {
       oAuth2Client.setCredentials({
         refresh_token: adminGoogle.google_refresh_token,
