@@ -40,6 +40,7 @@ export class AdminGoogleService {
     const { tokens } = await oAuth2Client.getToken(code);
     const adminGoogle = await this.findAdminGoogle();
     const { id } = adminGoogle;
+    console.log('ADMIN GOOGLE', adminGoogle);
     return await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
   }
 

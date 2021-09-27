@@ -89,6 +89,8 @@ export class EventsService {
         newEvent.in_google_cal = googleCreated;
         const { id } = newEvent;
         await this.eventsRespository.update(id, { in_google_cal: googleCreated });
+      } else {
+        console.log('ELSE STATEMEMT', res);
       }
       return newEvent;
     } catch (err) {
