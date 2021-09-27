@@ -6,7 +6,6 @@ import { Event } from 'src/events/entities/event.entity';
 import { UsersService } from 'src/users/users.service';
 import { topicsEmojis, googleCategoryColors, googleCategoryText } from './constants';
 import { calendar_v3, google } from 'googleapis';
-import { response } from 'express';
 
 const { OAuth2 } = google.auth;
 
