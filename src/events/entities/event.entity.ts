@@ -72,13 +72,18 @@ export class Event {
   promoted?: true | false;
 
   @Column('text')
-  summary?: string;
+  summary: string;
 
   @Column('text')
   title: string;
 
-  @Column('simple-array')
-  topics?: Topics[];
+  @Column({
+    type: 'enum',
+    enum: Topics,
+    array: true,
+    nullable: true,
+  })
+  topics: Topics[];
 
   @Column({
     type: 'text',

@@ -18,14 +18,15 @@ export class EventsService {
   async findAll(query: EventsQueryDto): Promise<Event[]> {
     console.log('hit find all service w/query:', query);
     // eslint-disable-next-line prefer-const
-    let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events').where('1=1');
+    let qb = this.eventsRespository.createQueryBuilder().select('events').from(Event, 'events');
     if (query.in_google_cal) {
       qb.orWhere('events.in_google_cal = :in_google_cal', {
         in_google_cal: query.in_google_cal,
       });
     }
-    if (query.category) {
-      // const categoryArray = query.category.split(',');
+
+    if (query.category && query.category.length > 0) {
+      console.log('get categories:', query.category);
       qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
     }
     if (query.category_text) {
@@ -64,12 +65,15 @@ export class EventsService {
     if (query.title) {
       qb.orWhere('events.title = :title', { title: query.title });
     }
-    if (query.topics) {
-      qb.orWhere('events.topics = ANY(:topics)', { topics: query.topics });
+    if (query.topics && query.topics.length > 0) {
+      // && means they have any overlap between array event.topics and  array query.topics
+      // SELECT title, topics FROM event WHERE topics && '{🧩 Strategy,🌎 Social Impact}';
+      qb.orWhere('events.topics && :topics', { topics: query.topics });
     }
     if (query.url) {
       qb.orWhere('events.url = :url', { url: query.url });
     }
+    console.log('running query:', qb.expressionMap.wheres);
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
 
