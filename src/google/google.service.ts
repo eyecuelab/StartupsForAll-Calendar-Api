@@ -6,6 +6,7 @@ import { Event } from 'src/events/entities/event.entity';
 import { UsersService } from 'src/users/users.service';
 import { topicsEmojis, googleCategoryColors, googleCategoryText } from './constants';
 import { calendar_v3, google } from 'googleapis';
+import { response } from 'express';
 
 const { OAuth2 } = google.auth;
 
@@ -53,14 +54,15 @@ export class AdminGoogleService {
     } catch (error) {
       console.log('ERROR IN COLLECTING TOKEN FROM DATABASE', error);
     }
-    return google.calendar({ version: 'v3', auth: oAuth2Client });
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+    return calendar;
   }
 
   async deleteEventFromGoogleCalendar(id: string): Promise<any> {
     const calendar = await this.initGoogleCalendar();
     const googleID = id.replace(/-/g, '');
 
-    return await calendar.events.delete({
+    return calendar.events.delete({
       calendarId: 'douglasfunnae@gmail.com',
       eventId: googleID,
     });

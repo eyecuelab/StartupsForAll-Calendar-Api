@@ -113,7 +113,7 @@ export class EventsService {
 
   async remove(id: string): Promise<DeleteResult> {
     const response = await this.adminGoogleService.deleteEventFromGoogleCalendar(id);
-    console.log('DELETE RESPONSE', response);
+    console.log(response);
     return await this.eventsRespository.delete({ id });
   }
 }
