@@ -19,8 +19,8 @@ const oAuth2Client = new OAuth2(
 export class AdminGoogleService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>, private usersService: UsersService) {}
 
-  async findAdminGoogle() {
-    const adminGoogle = await this.usersRepository.findOne({
+  async findAdminGoogle(): Promise<User> {
+    const adminGoogle: User = await this.usersRepository.findOne({
       where: {
         username: 'adminGoogle',
       },
@@ -28,15 +28,15 @@ export class AdminGoogleService {
     return adminGoogle;
   }
 
-  async authenticateGoogle() {
-    const authorizeURL = oAuth2Client.generateAuthUrl({
+  async authenticateGoogle(): Promise<string> {
+    const authorizeURL: string = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: process.env.GOOGLE_AUTH_SCOPES,
     });
     return authorizeURL;
   }
 
-  async collectRefreshTokens(code: string) {
+  async collectRefreshTokens(code: string): Promise<void> {
     const { tokens } = await oAuth2Client.getToken(code);
     const adminGoogle = await this.findAdminGoogle();
     const { id } = adminGoogle;
