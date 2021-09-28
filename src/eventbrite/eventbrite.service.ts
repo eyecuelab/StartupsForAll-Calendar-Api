@@ -10,10 +10,8 @@ export class EventbriteService {
 
   getEventBrite(id: string): Observable<FormattedEvent> {
     const url = `https://www.eventbriteapi.com/v3/events/${id}?expand=series_dates`;
-    // return this.httpService.get(url).pipe(map((res) => res.data));
     const res = this.httpService.get(url).pipe(
       map((res: AxiosResponse) => {
-        console.log('got results:', res.data);
         return {
           name: res.data.name.text,
           created: res.data.created,
