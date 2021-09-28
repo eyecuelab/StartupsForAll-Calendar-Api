@@ -6,13 +6,14 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { AdminGoogleService } from 'src/google/google.service';
 import { EventsQueryDto } from './dto/events-query.dto';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event)
     private eventsRespository: Repository<Event>,
-    private adminGoogleService: AdminGoogleService
+    private adminGoogleService: AdminGoogleService // private usersRepository: Repository<User>
   ) {}
 
   async findAll(query: EventsQueryDto): Promise<Event[]> {
@@ -83,6 +84,11 @@ export class EventsService {
       const saveResult = await this.eventsRespository.save(newEvent);
       try {
         const res = await this.adminGoogleService.addEventToGoogleCalendar(saveResult);
+        // if (res.instanceof(Error)) {
+        //   const adminGoogle = await this.adminGoogleService.findAdminGoogle()
+        //   const { id } = adminGoogle
+        //   this.usersRepository.update(id, { google_refresh_token: null })
+        // }
         const googleCreated = new Date(res.data.created);
         saveResult.in_google_cal = googleCreated;
         const { id } = saveResult;

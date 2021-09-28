@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/createUser.dto';
+import { admin } from 'googleapis/build/src/apis/admin';
 
 @Injectable()
 export class UsersService {
@@ -34,5 +35,18 @@ export class UsersService {
     const newUser = await this.usersRepository.create(userData);
     await this.usersRepository.save(newUser);
     return newUser;
+  }
+
+  async checkGoogleAuthStatus() {
+    const adminGoogle = await this.usersRepository.findOne({
+      where: {
+        username: 'admin',
+      },
+    });
+    if (adminGoogle.google_refresh_token.length) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

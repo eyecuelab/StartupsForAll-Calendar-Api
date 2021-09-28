@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { ConflictException } from '@nestjs/common';
 
 @Entity('users')
 export class User {
@@ -35,4 +36,9 @@ export class User {
     default: null,
   })
   google_refresh_token?: string | undefined;
+
+  // @Column({
+  //   default: false
+  // })
+  // is_google_auth: true | false;
 }

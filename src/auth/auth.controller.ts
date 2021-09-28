@@ -27,6 +27,11 @@ export class AuthController {
     return request.user;
   }
 
+  @Get('oAuthTokenStatus')
+  async checkStatusOfGoogleAuth() {
+    return await this.usersService.checkGoogleAuthStatus();
+  }
+
   @Post('confirm-privileges')
   @UseGuards(EventKeyAuthGuard)
   async loginAsEvent(@Body() data: EventKeyUserDto) {

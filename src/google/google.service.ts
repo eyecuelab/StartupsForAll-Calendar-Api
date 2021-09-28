@@ -51,7 +51,7 @@ export class AdminGoogleService {
         refresh_token: adminGoogle.google_refresh_token,
       });
     } catch (error) {
-      console.log('ERROR IN COLLECTING TOKEN FROM DATABASE', error);
+      return error;
     }
     const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
     return calendar;
