@@ -77,22 +77,43 @@ export class EventsService {
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
 
+  // async create(eventData: CreateEventDto): Promise<Event | Error> {
+  //   const newEvent = this.eventsRespository.create({ ...eventData });
+  //   try {
+  //     const saveResult = await this.eventsRespository.save(newEvent);
+  //     console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
+  //     const res = await this.adminGoogleService.addEventToGoogleCalendar(newEvent);
+  //     console.log('ADD TO GOOGLE RESPONSE', res.data);
+  //     if (res.status === 200) {
+  //       const googleCreated = new Date(res.data.created);
+  //       newEvent.in_google_cal = googleCreated;
+  //       const { id } = newEvent;
+  //       await this.eventsRespository.update(id, { in_google_cal: googleCreated });
+  //     } else {
+  //       console.log('ELSE STATEMEMT', res);
+  //     }
+  //     return newEvent;
+  //   } catch (err) {
+  //     console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
+  //     return new Error(`${err.routine} ${err.message}`);
+  //   }
+  // }
+
   async create(eventData: CreateEventDto): Promise<Event | Error> {
     const newEvent = this.eventsRespository.create({ ...eventData });
     try {
       const saveResult = await this.eventsRespository.save(newEvent);
-      console.log('CREATE EVENT SAVE ATTEMPTED. RESULT:', saveResult);
-      const res = await this.adminGoogleService.addEventToGoogleCalendar(newEvent);
-      console.log('ADD TO GOOGLE RESPONSE', res.data);
-      if (res.status === 200) {
+      try {
+        const res = await this.adminGoogleService.addEventToGoogleCalendar(saveResult);
+        console.log('ADD TO GOOGLE RESPONSE', res.data);
         const googleCreated = new Date(res.data.created);
-        newEvent.in_google_cal = googleCreated;
-        const { id } = newEvent;
-        await this.eventsRespository.update(id, { in_google_cal: googleCreated });
-      } else {
-        console.log('ELSE STATEMEMT', res);
+        const { id } = saveResult;
+        const updateResult = await this.eventsRespository.update(id, { in_google_cal: googleCreated });
+        console.log('UPDATE RESULT', updateResult);
+        return saveResult;
+      } catch (error) {
+        console.log('ERROR IN GOOGLE SAVE', error);
       }
-      return newEvent;
     } catch (err) {
       console.log('ERROR IN CREATING NEW EVENT', err.routine, err.message);
       return new Error(`${err.routine} ${err.message}`);
