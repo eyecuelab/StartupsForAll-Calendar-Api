@@ -48,4 +48,10 @@ export class AuthController {
     const { access_token } = await this.authService.login(user);
     return { access_token: access_token, name: data.name, email: data.email };
   }
+
+  @Post('eventkey/password')
+  @UseGuards(JwtAuthGuard)
+  async changeEventkeyPassword(@Body() body: any) {
+    return this.authService.changeEventkeyPassword(body.password);
+  }
 }
