@@ -13,7 +13,9 @@ export class EventsService {
   constructor(
     @InjectRepository(Event)
     private eventsRespository: Repository<Event>,
-    private adminGoogleService: AdminGoogleService // private usersRepository: Repository<User>
+    private adminGoogleService: AdminGoogleService,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
   ) {}
 
   async findAll(query: EventsQueryDto): Promise<Event[]> {
@@ -84,11 +86,11 @@ export class EventsService {
       const saveResult = await this.eventsRespository.save(newEvent);
       try {
         const res = await this.adminGoogleService.addEventToGoogleCalendar(saveResult);
-        // if (res.instanceof(Error)) {
-        //   const adminGoogle = await this.adminGoogleService.findAdminGoogle()
-        //   const { id } = adminGoogle
-        //   this.usersRepository.update(id, { google_refresh_token: null })
-        // }
+        if (res.instanceof(Error)) {
+          const adminGoogle = await this.adminGoogleService.findAdminGoogle();
+          const { id } = adminGoogle;
+          this.usersRepository.update(id, { google_refresh_token: null });
+        }
         const googleCreated = new Date(res.data.created);
         saveResult.in_google_cal = googleCreated;
         const { id } = saveResult;
