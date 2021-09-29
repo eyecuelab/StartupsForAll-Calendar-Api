@@ -87,9 +87,11 @@ export class EventsService {
       try {
         const res = await this.adminGoogleService.addEventToGoogleCalendar(saveResult);
         const googleCreated = new Date(res.data.created);
+        const googleLink = res.data.htmlLink;
         saveResult.in_google_cal = googleCreated;
+        saveResult.g_cal_link = googleLink;
         const { id } = saveResult;
-        await this.eventsRespository.update(id, { in_google_cal: googleCreated });
+        await this.eventsRespository.update(id, { in_google_cal: googleCreated, g_cal_link: googleLink });
         return saveResult;
       } catch (error) {
         console.log('ERROR IN GOOGLE SAVE', error);

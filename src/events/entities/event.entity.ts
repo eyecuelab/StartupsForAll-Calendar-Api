@@ -90,4 +90,11 @@ export class Event {
     nullable: true,
   })
   url?: string;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+    default: null,
+  })
+  g_cal_link?: string;
 }
