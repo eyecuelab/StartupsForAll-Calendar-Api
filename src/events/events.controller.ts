@@ -58,7 +58,6 @@ export class EventsController {
 
   @Get()
   findAll(@Query(new ValidationPipe({ transform: true })) query?: EventsQueryDto) {
-    console.log('events controller query:', query);
     return this.eventsService.findAll(query);
   }
 
@@ -77,7 +76,13 @@ export class EventsController {
   @Delete(':uuid')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  remove(@Param('uuid') uuid: string) {
-    return this.eventsService.remove(uuid);
+  async remove(@Param('uuid') uuid: string) {
+    try {
+      const res = await this.eventsService.remove(uuid);
+      if (res instanceof Error) throw new Error(res.message);
+      return { sucess: true, data: res, error: false };
+    } catch (error) {
+      return { success: false, data: {}, error: error.message };
+    }
   }
 }

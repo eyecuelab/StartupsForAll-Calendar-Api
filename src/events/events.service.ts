@@ -114,9 +114,21 @@ export class EventsService {
     return await this.eventsRespository.update(id, eventData);
   }
 
-  async remove(id: string): Promise<DeleteResult> {
-    const response = await this.adminGoogleService.deleteEventFromGoogleCalendar(id);
-    console.log(response);
-    return await this.eventsRespository.delete({ id });
+  async remove(id: string): Promise<DeleteResult | Error> {
+    console.log('REMOVE SERVICE...');
+    try {
+      const response = await this.adminGoogleService.deleteEventFromGoogleCalendar(id);
+      if (response.code !== 200) {
+        throw new Error('Failed to delete event from Google Calendar.');
+      }
+      return await this.eventsRespository.delete({ id });
+    } catch (error) {
+      // if the error is 404/410 it was already deleted from/doesn't exist on the Google Calendar
+      // so delete it from our DB only and return success
+      if (error.code === 404 || error.code === 410) {
+        return await this.eventsRespository.delete({ id });
+      }
+      return new Error('Unable to delete from Google calendar. Please try again later');
+    }
   }
 }
