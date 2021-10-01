@@ -54,6 +54,12 @@ export class Event {
   logo?: string;
 
   @Column({
+    type: 'text',
+    nullable: true,
+  })
+  organizer?: string;
+
+  @Column({
     type: 'timestamptz',
     nullable: true,
   })
