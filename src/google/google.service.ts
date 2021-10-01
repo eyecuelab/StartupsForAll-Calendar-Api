@@ -52,6 +52,12 @@ export class AdminGoogleService {
       oAuth2Client.setCredentials({
         access_token: tokens.access_token,
       });
+      const update: UpdateResult = {
+        generatedMaps: [],
+        raw: [],
+        affected: 0,
+      };
+      return update;
     }
   }
 
