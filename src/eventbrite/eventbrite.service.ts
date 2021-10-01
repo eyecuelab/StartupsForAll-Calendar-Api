@@ -16,7 +16,7 @@ export class EventbriteService {
           name: res.data.name.text,
           created: res.data.created,
           changed: res.data.changed,
-          cost: res.data.ticket_classes[0].cost.major_value,
+          cost: res.data.is_free ? 0 : res.data.ticket_classes[0].cost.major_value,
           currency: res.data.currency,
           description: res.data.description.text,
           id: res.data.id,
