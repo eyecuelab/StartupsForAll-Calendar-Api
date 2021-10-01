@@ -40,19 +40,31 @@ export class AdminGoogleService {
     const { tokens } = await oAuth2Client.getToken(code);
     const adminGoogle = await this.findAdminGoogle();
     const { id } = adminGoogle;
-    return await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
+    if (tokens.refresh_token) {
+      return await this.usersRepository.update(id, { google_refresh_token: tokens.refresh_token });
+    } else if (tokens.access_token) {
+      oAuth2Client.setCredentials({
+        access_token: tokens.access_token,
+      });
+    }
   }
 
   async initGoogleCalendar(): Promise<calendar_v3.Calendar> {
     const adminGoogle = await this.findAdminGoogle();
 
-    try {
+    if (adminGoogle.google_refresh_token) {
       oAuth2Client.setCredentials({
         refresh_token: adminGoogle.google_refresh_token,
       });
-    } catch (error) {
-      return error;
+    } else if (!adminGoogle.google_refresh_token) {
+      oAuth2Client.setCredentials({
+        refresh_token: process.env.GOOGLE_AUTH_REFRESH_TOKEN,
+      });
     }
+    const accessResponse = await oAuth2Client.getAccessToken();
+    oAuth2Client.setCredentials({
+      access_token: accessResponse.token,
+    });
     const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
     return calendar;
   }
