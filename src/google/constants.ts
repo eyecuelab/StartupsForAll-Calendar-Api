@@ -5,6 +5,7 @@ export const topicsEmojis: Record<string, string> = {
   '🌎 Social Impact': '🌎',
   '🧩 Strategy': '🧩',
   '🔍 User Research': '🔍',
+  '🌱 Other': '🌱',
 };
 
 export const googleCategoryColors = {

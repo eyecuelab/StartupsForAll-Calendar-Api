@@ -3,7 +3,7 @@ import { CategoryText } from './CategoryText.enum';
 import { Category } from './Category.enum';
 import { Topics } from './Topics.enum';
 @Entity('event')
-@Unique('events_constraints', ['start_date', 'end_date', 'url'])
+@Unique('events_constraints', ['start_date', 'end_date', 'title'])
 export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;

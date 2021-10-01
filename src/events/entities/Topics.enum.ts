@@ -5,4 +5,5 @@ export enum Topics {
   '🌎 Social Impact' = '🌎 Social Impact',
   '🧩 Strategy' = '🧩 Strategy',
   '🔍 User Research' = '🔍 User Research',
+  '🌱 Other' = '🌱 Other',
 }
