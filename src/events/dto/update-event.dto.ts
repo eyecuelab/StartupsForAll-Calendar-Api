@@ -49,6 +49,10 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   readonly logo?: string;
 
   @ApiPropertyOptional()
+  @IsOptional()
+  readonly organizer?: string;
+
+  @ApiPropertyOptional()
   @IsNotEmpty()
   @IsDateString()
   readonly start_date: Date;

@@ -48,6 +48,10 @@ export class CreateEventDto {
   readonly logo?: string;
 
   @ApiProperty()
+  @IsOptional()
+  readonly organizer?: string;
+
+  @ApiProperty()
   @IsNotEmpty()
   @IsDateString()
   readonly start_date: Date;

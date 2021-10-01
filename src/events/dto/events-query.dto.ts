@@ -47,6 +47,9 @@ export class EventsQueryDto {
   readonly logo: string;
 
   @ApiPropertyOptional()
+  readonly organizer?: string;
+
+  @ApiPropertyOptional()
   @IsDateString()
   @IsOptional()
   readonly start_date: Date;
