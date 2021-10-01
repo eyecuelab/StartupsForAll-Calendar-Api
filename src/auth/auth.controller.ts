@@ -8,6 +8,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UsersService } from 'src/users/users.service';
 import { EventKeyAuthGuard } from './guards/event-key-auth.guard';
+import { calendar } from 'googleapis/build/src/apis/calendar';
 
 @Controller()
 export class AuthController {
@@ -30,6 +31,13 @@ export class AuthController {
   @Get('oAuthTokenStatus')
   async checkStatusOfGoogleAuth() {
     return await this.usersService.checkGoogleAuthStatus();
+  }
+
+  @Post('google/update-calendar-id')
+  @UseGuards(JwtAuthGuard)
+  async updateAdminCalendarID(@Body('calendarID') calendarID?: string) {
+    const updateResponse = await this.usersService.updateAdminCalendarID(calendarID);
+    return updateResponse;
   }
 
   @Post('confirm-privileges')

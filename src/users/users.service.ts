@@ -49,4 +49,14 @@ export class UsersService {
       return false;
     }
   }
+
+  async updateAdminCalendarID(calendarID: string) {
+    const adminGoogle = await this.usersRepository.findOne({
+      where: {
+        username: 'admin',
+      },
+    });
+    const { id } = adminGoogle;
+    return await this.usersRepository.update(id, { calendar_id: calendarID });
+  }
 }

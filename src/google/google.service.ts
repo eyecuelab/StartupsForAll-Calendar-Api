@@ -28,6 +28,12 @@ export class AdminGoogleService {
     return adminGoogle;
   }
 
+  async findCalendarID(): Promise<string> {
+    const adminGoogle = await this.findAdminGoogle();
+    const { calendar_id } = adminGoogle;
+    return calendar_id;
+  }
+
   async authenticateGoogle(): Promise<string> {
     const authorizeURL: string = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
@@ -71,16 +77,18 @@ export class AdminGoogleService {
 
   async deleteEventFromGoogleCalendar(id: string): Promise<any> {
     const calendar = await this.initGoogleCalendar();
+    const calendarID = await this.findCalendarID();
     const googleID = id.replace(/-/g, '');
 
     return calendar.events.delete({
-      calendarId: 'douglasfunnae@gmail.com',
+      calendarId: calendarID,
       eventId: googleID,
     });
   }
 
   async addEventToGoogleCalendar(event: Event): Promise<any> {
     const calendar = await this.initGoogleCalendar();
+    const calendarID = await this.findCalendarID();
 
     const { category, creator_name, custom_blurb, end_date, id, location, start_date, summary, title, topics, url } =
       event;
@@ -113,7 +121,7 @@ ${url}
     };
 
     return calendar.events.insert({
-      calendarId: 'douglasfunnae@gmail.com',
+      calendarId: calendarID,
       requestBody: googleEvent,
     });
   }
