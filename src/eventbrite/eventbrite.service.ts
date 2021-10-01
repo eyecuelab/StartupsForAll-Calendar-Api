@@ -9,13 +9,14 @@ export class EventbriteService {
   constructor(private httpService: HttpService) {}
 
   getEventBrite(id: string): Observable<FormattedEvent> {
-    const url = `https://www.eventbriteapi.com/v3/events/${id}?expand=series_dates,organizer`;
+    const url = `https://www.eventbriteapi.com/v3/events/${id}?expand=series_dates,organizer,ticket_classes`;
     const res = this.httpService.get(url).pipe(
       map((res: AxiosResponse) => {
         return {
           name: res.data.name.text,
           created: res.data.created,
           changed: res.data.changed,
+          cost: res.data.ticket_classes[0].cost.major_value,
           currency: res.data.currency,
           description: res.data.description.text,
           id: res.data.id,
