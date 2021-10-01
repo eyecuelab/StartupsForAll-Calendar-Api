@@ -35,4 +35,11 @@ export class User {
     default: null,
   })
   google_refresh_token?: string | undefined;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+    default: null,
+  })
+  calendar_id?: string;
 }
