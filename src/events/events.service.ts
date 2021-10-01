@@ -29,7 +29,6 @@ export class EventsService {
     }
 
     if (query.category && query.category.length > 0) {
-      console.log('get categories:', query.category);
       qb.orWhere(`events.category = ANY(:category)`, { category: query.category });
     }
     if (query.category_text) {
@@ -76,7 +75,6 @@ export class EventsService {
     if (query.url) {
       qb.orWhere('events.url = :url', { url: query.url });
     }
-    console.log('running query:', qb.expressionMap.wheres);
     return await qb.orderBy('events.start_date', 'ASC').getMany();
   }
 
