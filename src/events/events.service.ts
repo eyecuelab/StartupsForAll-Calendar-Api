@@ -118,6 +118,7 @@ export class EventsService {
     console.log('REMOVE SERVICE...');
     try {
       const response = await this.adminGoogleService.deleteEventFromGoogleCalendar(id);
+      console.log('delete response from google:', response, response.code);
       if (response.code !== 200) {
         throw new Error('Failed to delete event from Google Calendar.');
       }
